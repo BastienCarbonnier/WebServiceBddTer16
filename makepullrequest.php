@@ -8,7 +8,7 @@
 <?php
 //essai
 	echo "<p>";
-	system("git pull",$retval);
+	passthru("git pull",$retval);
 	echo $retval;
 	echo "</p>";
 ?>
