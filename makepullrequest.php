@@ -7,7 +7,8 @@
 
 <?php
 	echo "<p>";
-	echo exec("git pull");
+	system("git pull",$retval);
+	echo $retval;
 	echo "</p>";
 ?>
 
