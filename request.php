@@ -12,7 +12,6 @@
 
     $db= new mysqli("localhost",$user,$mdp,$user);
 
-//Test 34256272
     $cmd = urldecode($_GET['cmd']);
     $champ = urldecode($_GET['champ']);
     $from = urldecode($_GET['from']);

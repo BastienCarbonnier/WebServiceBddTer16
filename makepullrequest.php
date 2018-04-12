@@ -6,7 +6,6 @@
 <font color="blue">Webservice BDD Ter 16</font>
 
 <?php
-//essai 2378988990
 	echo "<p>";
 	passthru("git pull",$retval);
 	print_r($retval);
