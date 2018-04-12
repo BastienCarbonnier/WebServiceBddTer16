@@ -12,7 +12,7 @@
 
     $db= new mysqli("localhost",$user,$mdp,$user);
 
-
+//Test
     $cmd = urldecode($_GET['cmd']);
     $champ = urldecode($_GET['champ']);
     $from = urldecode($_GET['from']);
