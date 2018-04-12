@@ -9,7 +9,7 @@
 //essai
 	echo "<p>";
 	passthru("git pull",$retval);
-	echo $retval;
+	print_r($retval);
 	echo "</p>";
 ?>
 
