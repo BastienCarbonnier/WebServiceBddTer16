@@ -18,11 +18,11 @@ try {
     echo '<result>';
 
 
-    $sel = $db->prepare("SELECT * FROM ’:table’");
+    $sel = $db->prepare("SELECT * FROM listerelation");
 
     $table = urldecode($_GET['table']);
     $id = intval(urldecode($_GET['id']));
-    $sel->bindValue('table',$table,PDO::PARAM_STR);
+    //$sel->bindValue('table',$table,PDO::PARAM_STR);
     $sel->execute();
 
     $result = $select->fetchAll();
