@@ -17,11 +17,11 @@ try {
     echo '<result>';
 
 
-    $select = $db->prepare("SELECT * FROM :table WHERE :table.id = :id;");
+    $select = $db->prepare("SELECT * FROM :table WHERE id = :id_rel");
     $table = "listerelation";//urldecode($_GET['table']);
     $id = 4;//urldecode($_GET['id']);
     $select->bindParam(':table', $table);
-    $select->bindParam(':id', $id);
+    $select->bindParam(':id_rel', $id);
     $select->execute();
 
     $result = $select->fetchAll();
