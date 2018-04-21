@@ -18,9 +18,10 @@ try {
     echo '<result>';
 
     // la requete
-	$query = $db->prepare("SELECT relation FROM :table
+	$query = $db->prepare("SELECT relation FROM ':table'
 							   WHERE id=:id");
-    $table = mysql_real_escape_string($_GET['table']);
+    $table = $_GET['table'];
+    mysql_real_escape_string($table);
     echo "<p>
     ".$table."
     </p>";
