@@ -19,7 +19,7 @@ try {
 
     // la requete
 	$query = $db->prepare("SELECT relation FROM :table
-							   WHERE id= :id");
+							   WHERE id =:id");
     $table = $_GET['table'];
     $id = intval($_GET['id']);
 	$query->bindParam(":table", $table);
