@@ -21,9 +21,16 @@ try {
 	$query = $db->prepare("SELECT relation FROM listerelation
 							   WHERE id =4");
     $table = $_GET['table'];
+    echo "<p>
+    ".$table."
+    </p>";
 
-    $id = intval($_GET['id']);
 
+    $id = $_GET['id'];
+
+    echo "<p>
+    ".$id."
+    </p>";
     //$query->bindParam(":table", $table);
 	//$query->bindParam(":id", $id);
 
