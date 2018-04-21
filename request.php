@@ -24,10 +24,8 @@ try {
     $select->bindParam(':id', $id);
     $select->execute();
 
-    $result = $select->setFetchMode(PDO::FETCH_ASSOC);
-    foreach($select->fetchAll() as $k=>$v) {
-        echo $v;
-    }
+    $result = $select->fetchAll();
+    print_r(result);
     echo '</result>';
     $db = null;
 } catch (PDOException $e) {
