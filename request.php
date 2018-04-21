@@ -17,7 +17,7 @@ try {
     echo '<result>';
 
 
-    $select = $db->prepare("SELECT * FROM :table WHERE id=:id");
+    $select = $db->prepare("SELECT * FROM :table WHERE id=:id;");
     $table = urldecode($_GET['table']);
     $id = urldecode($_GET['id']);
     $select->bindParam(':table', $table);
