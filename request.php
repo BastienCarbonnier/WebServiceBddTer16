@@ -12,7 +12,7 @@ include ("../../.sqlpass.php");
 
 try {
     $db = new PDO('mysql:host=localhost;dbname='.$user, $user, $mdp);
-    $conn->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
+    $db->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
 
     echo '<result>';
 
