@@ -7,11 +7,12 @@
 
 <?php
 error_reporting(E_ALL | E_STRICT);
+
 include ("../../.sqlpass.php");
 
 $cmd = urldecode($_GET['cmd']);
 $champ = urldecode($_GET['champ']);
-$from = urldecode($_GET['from']);
+
 
 $query = $cmd." ".$champ." FROM ".$from;
 
@@ -22,15 +23,23 @@ if (isset($_GET['where'])){
 else{
     $query .= ";";
 }
+
 echo "<p>".$query."</p>";
 try {
-    $dbh = new PDO('mysql:host=localhost;dbname='.$user, $user, $mdp);
+    $db = new PDO('mysql:host=localhost;dbname='.$user, $user, $mdp);
+    $conn->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
+
     echo '<result>';
-    foreach($dbh->query($query) as $row) {
-        print_r($row);
-    }
+
+    $select = $db->prepare("SELECT * FROM :table WHERE id = :id");
+    $select->bindParam(':table', $table);
+    $select->bindParam(':id', $id);
+    $table = urldecode($_GET['table']);
+    $id = urldecode($_GET['id']);
+    $select->execute();
+
     echo '</result>';
-    $dbh = null;
+    $db = null;
 } catch (PDOException $e) {
     print "Erreur !: " . $e->getMessage() . "<br/>";
     die();
