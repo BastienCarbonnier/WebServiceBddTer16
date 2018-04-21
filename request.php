@@ -17,7 +17,7 @@ try {
     echo '<result>';
 
 
-    $select = $db->prepare("SELECT * FROM :table WHERE id=:id;");
+    $select = $db->prepare("SELECT * FROM :table WHERE id = :id;");
     $table = "listerelation";//urldecode($_GET['table']);
     $id = 4;//urldecode($_GET['id']);
     $select->bindParam(':table', $table);
