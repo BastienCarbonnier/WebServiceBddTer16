@@ -18,14 +18,14 @@ try {
 
 
     $select = $db->prepare("SELECT * FROM :table WHERE id=:id");
-    $table = "listerelation";//urldecode($_GET['table']);
-    $id = 4;//urldecode($_GET['id']);
+    $table = urldecode($_GET['table']);
+    $id = urldecode($_GET['id']);
     $select->bindParam(':table', $table);
     $select->bindParam(':id', $id);
     $select->execute();
 
     $result = $select->fetchAll();
-    print_r(result);
+    print_r($result);
     echo '</result>';
     $db = null;
 } catch (PDOException $e) {
