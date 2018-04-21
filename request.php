@@ -18,16 +18,14 @@ try {
     echo '<result>';
 
     // la requete
-	$query = $db->prepare("SELECT relation FROM :table
-							   WHERE id =:id");
+	$query = $db->prepare("SELECT relation FROM listerelation
+							   WHERE id =4");
     $table = $_GET['table'];
-    echo $table;
 
     $id = intval($_GET['id']);
-    echo $id;
-    echo $query;
-    $query->bindParam(":table", $table);
-	$query->bindParam(":id", $id);
+
+    //$query->bindParam(":table", $table);
+	//$query->bindParam(":id", $id);
 
 	// execution
 	$query->execute();
