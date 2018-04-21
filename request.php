@@ -21,8 +21,11 @@ try {
 	$query = $db->prepare("SELECT relation FROM :table
 							   WHERE id =:id");
     $table = $_GET['table'];
+    echo $table;
+
     $id = intval($_GET['id']);
-	$query->bindParam(":table", $table);
+    echo $id;
+    $query->bindParam(":table", $table);
 	$query->bindParam(":id", $id);
 
 	// execution
