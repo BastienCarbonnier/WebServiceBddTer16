@@ -18,12 +18,12 @@ try {
     echo '<result>';
 
 
-    $select = $db->prepare("SELECT * FROM :table where id =:id");
-
+    $select = $db->prepare("SELECT * FROM :table where id =:id_rel");
+    print_r($select);
     $table = urldecode($_GET['table']);
     $id = intval(urldecode($_GET['id']));
     $select->bindValue('table',$table,PDO::PARAM_STR);
-    $select->bindValue('id',$id,PDO::PARAM_STR);
+    $select->bindValue('id_rel',$id,PDO::PARAM_STR);
     $select->execute();
 
     $result = $select->fetchAll();
