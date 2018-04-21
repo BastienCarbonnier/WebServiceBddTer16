@@ -12,6 +12,7 @@ include ("../../.sqlpass.php");
 
 try {
     $db = new PDO('mysql:host=localhost;dbname='.$user, $user, $mdp);
+
     $db->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
 
     echo '<result>';
@@ -19,10 +20,10 @@ try {
 
     $select = $db->prepare("SELECT * FROM :table WHERE id =:id");
 
-    $table = "'".urldecode($_GET['table']);
-    $id = urldecode($_GET['id'])."'";
-    $select->bindParam(':table',$table);
-    $select->bindParam(':id',$id);
+    $table = urldecode($_GET['table']);
+    $id = intval(urldecode($_GET['id']));
+    $select->bindValue('table',$table);
+    $select->bindValue('id',$id);
     $select->execute();
 
     $result = $select->fetchAll();
