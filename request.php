@@ -5,46 +5,37 @@
 <body>
 <font color="blue">Webservice BDD Ter 16</font>
 
-
 <?php
-    error_reporting(E_ALL | E_STRICT);
-    include ("../../.sqlpass.php");
+error_reporting(E_ALL | E_STRICT);
+include ("../../.sqlpass.php");
 
-    $db= new mysqli("localhost",$user,$mdp,$user);
+$cmd = urldecode($_GET['cmd']);
+$champ = urldecode($_GET['champ']);
+$from = urldecode($_GET['from']);
 
-    $cmd = urldecode($_GET['cmd']);
-    $champ = urldecode($_GET['champ']);
-    $from = urldecode($_GET['from']);
+$query = $cmd." ".$champ." FROM ".$from;
 
-    $query = $cmd." ".$champ." FROM ".$from;
+if (isset($_GET['where'])){
+    $where = urldecode($_GET['where']);
+    $query .=" WHERE ".$where.";";
+}
+else{
+    $query .= ";";
+}
+echo "<p>".$query."</p>";
+try {
+    $dbh = new PDO('mysql:host=localhost;dbname='.$user, $user, $mdp);
 
-    if (isset($_GET['where'])){
-        $where = urldecode($_GET['where']);
-        $query .=" WHERE ".$where.";";
-    }
-    else{
-        $query .= ";";
-    }
-	echo "<p>".$query."</p>";
-
-
-
-    if ( $result = $db->query($query) ){
+    foreach($dbh->query('SELECT * from FOO') as $row) {
         echo '<result>';
-	while ($row = $result->fetch_array(MYSQLI_ASSOC)){
-
-        echo '<pre>';
-	print_r($row);
-	echo '</pre>';
-	}
+        print_r($row);
         echo '</result>';
-        $result->free();
-        $db->close();
     }
-    else{
-        echo "<result>NULL</result>" ;
-    }
-
+    $dbh = null;
+} catch (PDOException $e) {
+    print "Erreur !: " . $e->getMessage() . "<br/>";
+    die();
+}
 ?>
 
 </body>
