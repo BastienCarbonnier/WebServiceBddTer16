@@ -25,11 +25,11 @@ else{
 echo "<p>".$query."</p>";
 try {
     $dbh = new PDO('mysql:host=localhost;dbname='.$user, $user, $mdp);
+    echo '<result>';
     foreach($dbh->query($query) as $row) {
-        echo '<result>';
         print_r($row);
-        echo '</result>';
     }
+    echo '</result>';
     $dbh = null;
 } catch (PDOException $e) {
     print "Erreur !: " . $e->getMessage() . "<br/>";
