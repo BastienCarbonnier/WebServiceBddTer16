@@ -20,13 +20,13 @@ try {
     // la requete
 	$query = $db->prepare("SELECT relation FROM :table
 							   WHERE id=:id");
-    $table = $_GET['table'];
+    $table = mysql_real_escape_string($_GET['table']);
     echo "<p>
     ".$table."
     </p>";
 
 
-    $id = $_GET['id'];
+    $id = intval($_GET['id']);
 
     echo "<p>
     ".$id."
