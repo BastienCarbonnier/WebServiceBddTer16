@@ -26,16 +26,17 @@ echo "<p>".$query."</p>";
 try {
     $dbh = new PDO('mysql:host=localhost;dbname='.$user, $user, $mdp);
 
-    foreach($dbh->query('SELECT * from FOO') as $row) {
-        echo '<result>';
-        print_r($row);
-        echo '</result>';
-    }
-    $dbh = null;
 } catch (PDOException $e) {
     print "Erreur !: " . $e->getMessage() . "<br/>";
     die();
 }
+
+foreach($dbh->query('SELECT * from FOO') as $row) {
+    echo '<result>';
+    print_r($row);
+    echo '</result>';
+}
+$dbh = null;
 ?>
 
 </body>
