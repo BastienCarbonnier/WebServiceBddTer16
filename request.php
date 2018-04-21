@@ -17,16 +17,23 @@ try {
 
     echo '<result>';
 
-
-    $sel = $db->prepare("SELECT * FROM listerelation");
-
+    // la requete
+	$query = $db->prepare("SELECT relation FROM :table
+							   WHERE id= :id");
     $table = urldecode($_GET['table']);
     $id = intval(urldecode($_GET['id']));
-    //$sel->bindValue('table',$table,PDO::PARAM_STR);
-    $sel->execute();
+	$query->bindParam(":table", $table);
+	$query->bindParam(":id", $id);
 
-    $result = $select->fetchAll();
-    print_r($result);
+	// execution
+	$query->execute();
+
+	// Récupération de la première ligne
+	$result2 = $query->fetch();
+
+
+
+    print_r($result2);
     echo '</result>';
     $db = null;
 } catch (PDOException $e) {
