@@ -18,7 +18,7 @@ try {
     echo '<result>';
 
     // la requete
-	$query = $db->prepare("SELECT relation FROM :table WHERE id=:id");
+	$query = $db->prepare("SELECT relation FROM ‘:table‘ WHERE id=:id");
     $table = $_GET['table'];
     mysql_real_escape_string($table);
     echo "<p>
