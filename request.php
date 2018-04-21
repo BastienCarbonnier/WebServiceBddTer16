@@ -18,8 +18,8 @@ try {
     echo '<result>';
 
 
-    $select = $db->prepare("SELECT * FROM :table where id =:id_rel");
-    print_r($select);
+    $select = $db->prepare("SELECT * FROM :table where ‘id’ =:id_rel");
+    
     $table = urldecode($_GET['table']);
     $id = intval(urldecode($_GET['id']));
     $select->bindValue('table',$table,PDO::PARAM_STR);
