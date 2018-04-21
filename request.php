@@ -20,8 +20,8 @@ try {
     // la requete
 	$query = $db->prepare("SELECT relation FROM :table
 							   WHERE id= :id");
-    $table = urldecode($_GET['table']);
-    $id = intval(urldecode($_GET['id']));
+    $table = $_GET['table'];
+    $id = intval($_GET['id']);
 	$query->bindParam(":table", $table);
 	$query->bindParam(":id", $id);
 
