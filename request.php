@@ -19,7 +19,7 @@ try {
 
     $select = $db->prepare("SELECT * FROM :table WHERE id = :id_rel");
     $table = "listerelation";//urldecode($_GET['table']);
-    $id = 4;//urldecode($_GET['id']);
+    $id = "4";//urldecode($_GET['id']);
     $select->bindParam(':table', $table);
     $select->bindParam(':id_rel', $id);
     $select->execute();
