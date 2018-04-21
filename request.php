@@ -20,7 +20,7 @@ try {
     $select = $db->prepare("SELECT * FROM :table WHERE id =:id");
     $table = urldecode($_GET['table']);
     $id = urldecode($_GET['id']);
-    $select->bindParam("sss",$table,$id);
+    $select->bindParam("ss",$table,$id);
     $select->execute();
 
     $result = $select->fetchAll();
