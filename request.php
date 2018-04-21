@@ -18,7 +18,7 @@ try {
     echo '<result>';
 
 
-    $sel = $db->prepare("SELECT * FROM :table");
+    $sel = $db->prepare("SELECT * FROM ’:table’");
 
     $table = urldecode($_GET['table']);
     $id = intval(urldecode($_GET['id']));
