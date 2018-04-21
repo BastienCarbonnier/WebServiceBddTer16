@@ -3,7 +3,6 @@ error_reporting(E_ALL | E_STRICT);
 
 include_once 'fonction.php';
 
-
 include ("../../.sqlpass.php");
 
 try {
@@ -13,8 +12,6 @@ try {
 	print "Erreur !: " . $e->getMessage() . "<br/>";
 	die();
 }
-
-var_dump($_GET);
 
 
 $rqt = strval(urldecode($_GET["rqt"]));
@@ -27,7 +24,12 @@ switch($rqt){
 		$where = strval(urldecode($_GET["where"]));
 		$recup = selection($table, $select, $where);
 		afficheTableau($recup);
-	case "insert": ; break;
+		break;
+	case "insert": 
+		$values = strval(urldecode($_GET["values"]));
+		$field = strval(urldecode($_GET["field"]));
+		insertion($table, $field, $values);
+		break;
 }
 
 
@@ -50,5 +52,15 @@ function selection($table, $select, $where){
 	*/
 	
 	 
+}
+
+
+function insertion($table, $field, $values){
+	global $db;
+	
+	$rqt="INSERT INTO ".$table." (".$field.") VALUES (".$values.")";
+	echo "</br>".$rqt."</br>";
+	$query = $db->prepare($rqt);
+	$query->execute();	
 }
 ?>
