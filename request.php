@@ -22,8 +22,8 @@ try {
 
     $table = urldecode($_GET['table']);
     $id = intval(urldecode($_GET['id']));
-    $select->bindValue('table',$table);
-    $select->bindValue('id',$id);
+    $select->bindValue('table',$table,PDO::PARAM_STR);
+    $select->bindValue('id',$id,PDO::PARAM_STR);
     $select->execute();
 
     $result = $select->fetchAll();
