@@ -22,13 +22,10 @@ try {
     $id = urldecode($_GET['id']);
     $select->bindParam(':table', $table);
     $select->bindParam(':id', $id);
-
-
-
     $select->execute();
 
     $result = $select->setFetchMode(PDO::FETCH_ASSOC);
-    foreach($select->fetchAll()) as $k=>$v) {
+    foreach($select->fetchAll() as $k=>$v) {
         echo $v;
     }
     echo '</result>';
