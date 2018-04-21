@@ -25,6 +25,7 @@ try {
 
     $id = intval($_GET['id']);
     echo $id;
+    echo $query;
     $query->bindParam(":table", $table);
 	$query->bindParam(":id", $id);
 
