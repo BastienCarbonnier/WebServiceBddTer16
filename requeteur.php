@@ -17,7 +17,7 @@ try {
 
 
 
-$rqt = urldecode($_GET["rqt"]);
+$rqt = strval(urldecode($_GET["rqt"]));
 $table = strval(urldecode($_GET["from"]));
 echo $rqt;
 echo "<br/>".$table;
