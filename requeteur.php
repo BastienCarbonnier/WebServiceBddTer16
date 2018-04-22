@@ -16,7 +16,7 @@ echo "partie 3";
 try {
 	$db = new PDO('mysql:host=localhost;dbname='.$user, $user, $mdp);
 	$db->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
-include_once ("fonction.php");
+include_once ("./fonction.php");
 echo "partie 4";
 
 $rqt = urldecode($_GET["rqt"]);
