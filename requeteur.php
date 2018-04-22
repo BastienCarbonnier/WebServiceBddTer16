@@ -8,7 +8,8 @@
 <?php
 error_reporting(E_ALL | E_STRICT);
 echo "Partie 1";
-include_once 'fonction.php';
+
+include_once "fonction.php";
 echo "partie 2";
 include ("../../.sqlpass.php");
 echo "partie 3";
