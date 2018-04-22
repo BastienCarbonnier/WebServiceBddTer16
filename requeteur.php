@@ -27,7 +27,9 @@ switch($rqt){
 		$select = strval(urldecode($_GET["select"]));
 		$where = strval(urldecode($_GET["where"]));
 		echo "<br/>".$select;
+		echo "<br/>".$where;
 		$recup = selection($table, $select, $where);
+		echo "<br/>".$recup;
 		print_r($recup);
 		afficheTableau($recup);
 		break;
