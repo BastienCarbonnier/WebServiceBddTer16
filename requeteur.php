@@ -15,8 +15,6 @@ try {
 	$BD_JDM = new PDO('mysql:host=localhost;dbname='.$user, $user, $mdp);
 	$BD_JDM->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
 
-
-
 } catch (PDOException $e) {
 	print "Erreur !: " . $e->getMessage() . "<br/>";
 	die();
@@ -75,11 +73,9 @@ switch($rqt){
 	case "select":
 		$select = strval(urldecode($_GET["select"]));
 		$where = strval(urldecode($_GET["where"]));
-		echo "<br/>".$select;
-		echo "<br/>".$where;
+
 		$recup = selection($table, $select, $where);
-		echo "<br/>".$recup;
-		print_r($recup);
+
 		afficheTableau($recup);
 		break;
 	case "insert":
