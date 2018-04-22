@@ -1,15 +1,15 @@
 <?php
 /* Fonctions */
 function recupMot($idmot){
-  global $db;
+  global $BD_JDM;
   $query = "SELECT n FROM node WHERE eid=".$idmot;
-  return $db->query($query)->fetch()[0];
+  return $BD_JDM->query($query)->fetch()[0];
 }
 
 function recupRelation($idRelation){
-  global $db;
+  global $BD_JDM;
   $query = "SELECT relation FROM listerelation WHERE id=".$idRelation;
-  return $db->query($query)->fetch()[0];
+  return $BD_JDM->query($query)->fetch()[0];
 }
 
 function affichage($idMot1, $idRelation, $idMot2){
@@ -41,7 +41,7 @@ function affichagePoidTableau($idMot1, $idRelation, $idMot2, $poid){
  */
 function affichageInfere($ordre=false){
   /* variable de connexion globale */
-  global $db;
+  global $BD_JDM;
   global $BD_heberg;
 
   // Affichage trié ou non
@@ -67,7 +67,7 @@ function affichageInfere($ordre=false){
 
 function maxRid(){
   /* variable de connexion globale */
-  global $db;
+  global $BD_JDM;
   global $BD_heberg;
 
   if(isset($_SESSION["maxrid"])){
@@ -75,7 +75,7 @@ function maxRid(){
   } else {
     // recherche du rid max (pour pk)
     $query="SELECT MAX(rid) FROM relation";
-    $maxRID = ($db->query($query)->fetch())[0];
+    $maxRID = ($BD_JDM->query($query)->fetch())[0];
 
     $query="SELECT MAX(rid) FROM relationinfere";
     $maxRIDinf = ($BD_heberg->query($query)->fetch())[0];
@@ -88,12 +88,13 @@ function maxRid(){
 /*
 * Permet d'inserer le contenu de $_SESSION["insertion"]
 */
+
 function inserer(){
 
 
   if(isset($_SESSION["insertion"])){
   	/* variable de connexion globale */
-  	global $db;
+  	global $BD_JDM;
   	global $BD_heberg;
     for($i = 0; $i < sizeof($_SESSION["insertion"]);$i++) {
       $query = $BD_heberg->prepare("INSERT INTO relationinfere (rid, n1, n2, t, w)

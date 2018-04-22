@@ -14,9 +14,9 @@ echo "partie 2";
 include ("../../.sqlpass.php");
 echo "partie 3";
 try {
-	$db = new PDO('mysql:host=localhost;dbname='.$user, $user, $mdp);
-	$db->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
-include_once ("./fonction.php");
+	$BD_JDM = new PDO('mysql:host=localhost;dbname='.$user, $user, $mdp);
+	$BD_JDM->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
+//include_once "fonction.php";
 echo "partie 4";
 
 $rqt = urldecode($_GET["rqt"]);
@@ -41,16 +41,16 @@ switch($rqt){
 
 function selection($table, $select, $where){
 	echo "<br/>";
-	global $db;
+	global $BD_JDM;
 
 	 $rqt="SELECT ".$select." FROM ".$table." WHERE ".$where;
-	 $query = $db->prepare($rqt);
+	 $query = $BD_JDM->prepare($rqt);
 	 $query->execute();
 	 return $query->fetchAll();
 
 
 	/* Ne marche pas
- 	$query = $db->prepare("SELECT :selection FROM :table WHERE :clause ");
+ 	$query = $BD_JDM->prepare("SELECT :selection FROM :table WHERE :clause ");
 	$query->bindValue(":selection", $select);
 	$query->bindValue(":table", $table);
 	$query->bindValue(":clause", $where);
@@ -62,18 +62,35 @@ function selection($table, $select, $where){
 
 
 function insertion($table, $field, $values){
-	global $db;
+	global $BD_JDM;
 
 	$rqt="INSERT INTO ".$table." (".$field.") VALUES (".$values.")";
 	echo "</br>".$rqt."</br>";
-	$query = $db->prepare($rqt);
+	$query = $BD_JDM->prepare($rqt);
 	$query->execute();
 }
+
+function afficheTableau($tab){
+	$strucAffich = "<table border = 1>";
+	for($i = 0; $i < sizeof($tab); $i++){
+		$strucAffich .= "<tr>";
+		for($j = 0; $j < sizeof($tab[$i])/2; $j++){
+
+			$strucAffich .="<td>".$tab[$i][$j]."</td>";
+		}
+		$strucAffich .="</tr>";
+	}
+	$strucAffich .="</table>";
+	echo $strucAffich;
+}
+
 
 } catch (PDOException $e) {
 	print "Erreur !: " . $e->getMessage() . "<br/>";
 	die();
 }
+
+
 ?>
 
 
