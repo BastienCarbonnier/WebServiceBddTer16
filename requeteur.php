@@ -19,8 +19,8 @@ try {
 
 $rqt = strval(urldecode($_GET["rqt"]));
 $table = strval(urldecode($_GET["from"]));
-echo $rqt;
-echo "<br/>".$table;
+
+
 $recup = false;
 switch($rqt){
 	case "select":
@@ -41,7 +41,7 @@ switch($rqt){
 function selection($table, $select, $where){
 	echo "<br/>";
 	global $BD_JDM;
-
+	echo "<br/>".$select;
 	 $rqt="SELECT ".$select." FROM ".$table." WHERE ".$where;
 	 $query = $BD_JDM->prepare($rqt);
 	 $query->execute();
