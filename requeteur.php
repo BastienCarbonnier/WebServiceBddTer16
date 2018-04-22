@@ -22,25 +22,6 @@ $table = strval(urldecode($_GET["from"]));
 
 
 $recup = false;
-switch($rqt){
-	case "select":
-		$select = strval(urldecode($_GET["select"]));
-		$where = strval(urldecode($_GET["where"]));
-		echo "<br/>".$select;
-		echo "<br/>".$where;
-		$recup = selection($table, $select, $where);
-		echo "<br/>".$recup;
-		print_r($recup);
-		afficheTableau($recup);
-		break;
-	case "insert":
-		$values = strval(urldecode($_GET["values"]));
-		$field = strval(urldecode($_GET["field"]));
-		insertion($table, $field, $values);
-		break;
-}
-
-
 function selection($table, $select, $where){
 	echo "<br/>";
 	global $BD_JDM;
@@ -61,6 +42,26 @@ function selection($table, $select, $where){
 
 
 }
+switch($rqt){
+	case "select":
+		$select = strval(urldecode($_GET["select"]));
+		$where = strval(urldecode($_GET["where"]));
+		echo "<br/>".$select;
+		echo "<br/>".$where;
+		$recup = selection($table, $select, $where);
+		echo "<br/>".$recup;
+		print_r($recup);
+		afficheTableau($recup);
+		break;
+	case "insert":
+		$values = strval(urldecode($_GET["values"]));
+		$field = strval(urldecode($_GET["field"]));
+		insertion($table, $field, $values);
+		break;
+}
+
+
+
 
 
 function insertion($table, $field, $values){
