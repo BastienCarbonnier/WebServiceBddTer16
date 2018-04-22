@@ -15,10 +15,7 @@ include ("../../.sqlpass.php");
 try {
 	$db = new PDO('mysql:host=localhost;dbname='.$user, $user, $mdp);
 	$db->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
-} catch (PDOException $e) {
-	print "Erreur !: " . $e->getMessage() . "<br/>";
-	die();
-}
+
 
 
 $rqt = strval(urldecode($_GET["rqt"]));
@@ -69,6 +66,11 @@ function insertion($table, $field, $values){
 	echo "</br>".$rqt."</br>";
 	$query = $db->prepare($rqt);
 	$query->execute();
+}
+
+} catch (PDOException $e) {
+	print "Erreur !: " . $e->getMessage() . "<br/>";
+	die();
 }
 ?>
 
