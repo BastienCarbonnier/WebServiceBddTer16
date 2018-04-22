@@ -20,7 +20,8 @@ try {
 
 $rqt = strval(urldecode($_GET["rqt"]));
 $table = strval(urldecode($_GET["from"]));
-
+echo $rqt;
+echo "<br/>".$table;
 $recup = false;
 switch($rqt){
 	case "select":
