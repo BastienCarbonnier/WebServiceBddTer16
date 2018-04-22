@@ -26,6 +26,7 @@ switch($rqt){
 	case "select":
 		$select = strval(urldecode($_GET["select"]));
 		$where = strval(urldecode($_GET["where"]));
+		echo "<br/>".$select;
 		$recup = selection($table, $select, $where);
 		print_r($recup);
 		afficheTableau($recup);
@@ -41,7 +42,7 @@ switch($rqt){
 function selection($table, $select, $where){
 	echo "<br/>";
 	global $BD_JDM;
-	echo "<br/>".$select;
+
 	 $rqt="SELECT ".$select." FROM ".$table." WHERE ".$where;
 	 $query = $BD_JDM->prepare($rqt);
 	 $query->execute();
