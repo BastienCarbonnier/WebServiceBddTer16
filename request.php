@@ -10,6 +10,7 @@ error_reporting(E_ALL | E_STRICT);
 
 include ("../../.sqlpass.php");
 
+
 try {
     $db = new PDO('mysql:host=localhost;dbname='.$user, $user, $mdp);
 
@@ -17,6 +18,8 @@ try {
 
     echo '<result>';
 
+    $db->$query();
+    /*
     // la requete
 	$query = $db->prepare("SELECT relation FROM :table WHERE id=:id");
     $table = "'".$_GET['table']."'";
@@ -39,7 +42,7 @@ try {
 
 	// Récupération de la première ligne
 	$result2 = $query->fetch();
-
+    */
 
 
     print_r($result2);
