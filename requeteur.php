@@ -7,17 +7,15 @@
 
 <?php
 error_reporting(E_ALL | E_STRICT);
-echo "Partie 1";
 
+//include_once "fonction.php";
 
-echo "partie 2";
 include ("../../.sqlpass.php");
-echo "partie 3";
 try {
 	$BD_JDM = new PDO('mysql:host=localhost;dbname='.$user, $user, $mdp);
 	$BD_JDM->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
-//include_once "fonction.php";
-echo "partie 4";
+
+
 
 $rqt = urldecode($_GET["rqt"]);
 $table = strval(urldecode($_GET["from"]));
@@ -29,6 +27,7 @@ switch($rqt){
 		$select = strval(urldecode($_GET["select"]));
 		$where = strval(urldecode($_GET["where"]));
 		$recup = selection($table, $select, $where);
+		print_r($recup);
 		afficheTableau($recup);
 		break;
 	case "insert":
