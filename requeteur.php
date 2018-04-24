@@ -101,7 +101,7 @@ function is_user_exist ($pseudo){
     $where = "pseudo='".$pseudo."'";
 
     $result = select_one($table, $select, $where);
-    
+
     if ($result["id"] == NULL){
         return false;
     }
@@ -195,7 +195,7 @@ switch($cmd){
         desactive_debug($user_pseudo);
         break;
     case "is_in_debug":
-        $user_pseudo = strval(urldecode($_GET["pseudo"]));
+        $pseudo = strval(urldecode($_GET["pseudo"]));
         if (is_in_debug($pseudo)){
             echo "<result>true</result>";
         }
