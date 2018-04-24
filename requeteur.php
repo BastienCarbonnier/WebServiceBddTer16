@@ -124,7 +124,7 @@ switch($rqt){
 
         $select = "rid";
         $where = "n1=".$n1." AND n2=".$n2." AND t=".$t;
-        $result = selection($table, $select, $where);
+        $result = select_one($table, $select, $where);
 
         print_r($result);
 
