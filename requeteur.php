@@ -52,10 +52,8 @@ function select_one($table, $select, $where){
      echo $rqt;
 	 $query = $BD_JDM->prepare($rqt);
 	 $query->execute();
-     $result = $query->fetchAll();
-
-     $firstresult = $result[0];
-	 return $result[0];
+     
+	 return $query->fetch();
 }
 /*
 UPDATE relationuser
@@ -133,7 +131,7 @@ switch($rqt){
         $where = "n1=".$n1." AND n2=".$n2." AND t=".$t;
 
         $result = selection($table, $select, $where);
-
+        print_r($result);
         $attributs = "n1,n2,t,user_id";
 
         $values = $n1.",".$n2.",".$t.",(SELECT id FROM user WHERE pseudo='".$pseudo."')";
