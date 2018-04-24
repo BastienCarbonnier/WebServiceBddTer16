@@ -20,7 +20,7 @@ try {
 	die();
 }
 
-$rqt = strval(urldecode($_GET["cmd"]));
+$cmd = strval(urldecode($_GET["cmd"]));
 $table = strval(urldecode($_GET["from"]));
 
 
