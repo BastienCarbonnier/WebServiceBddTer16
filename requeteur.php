@@ -131,13 +131,13 @@ switch($rqt){
         $select = "rid";
         $where = "n1=".$n1." AND n2=".$n2." AND t=".$t;
 
-        $result = selection($table, $select, $where);
+        $result = select_one($table, $select, $where);
 
         print_r($result);
         echo "<br/>";
         echo "<br/>";
         echo "<br/>";
-        print_r ($result[0]);
+        echo $result["rid"];
         /*
         $attributs = "n1,n2,t,user_id";
 
