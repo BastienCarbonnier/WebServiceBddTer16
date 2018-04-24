@@ -36,7 +36,7 @@ function selection($table, $select, $where){
 }
 
 function insertion($table, $field, $values){
-
+    global $BD_JDM;
 	$rqt="INSERT INTO ".$table." (".$field.") VALUES (".$values.");";
 	echo "</br>".$rqt."</br>";
 	$query = $BD_JDM->prepare($rqt);
