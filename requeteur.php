@@ -52,7 +52,7 @@ function select_one($table, $select, $where){
      echo $rqt;
 	 $query = $BD_JDM->prepare($rqt);
 	 $query->execute();
-     
+
 	 return $query->fetch();
 }
 /*
@@ -131,13 +131,19 @@ switch($rqt){
         $where = "n1=".$n1." AND n2=".$n2." AND t=".$t;
 
         $result = selection($table, $select, $where);
+
         print_r($result);
+        echo "<br/>";
+        echo "<br/>";
+        echo "<br/>";
+        print_r($result[0]);
+        /*
         $attributs = "n1,n2,t,user_id";
 
         $values = $n1.",".$n2.",".$t.",(SELECT id FROM user WHERE pseudo='".$pseudo."')";
 
         insertion($table, $attributs, $values);
-
+        */
         break;
 
 }
