@@ -101,7 +101,7 @@ function is_user_exist ($pseudo){
     $where = "pseudo='".$pseudo."'";
 
     $result = select_one($table, $select, $where);
-    print_r($result);
+    
     if ($result["id"] == NULL){
         return false;
     }
@@ -118,6 +118,21 @@ function is_relation_exist ($n1,$n2,$t){
     $result = select_one($table, $select, $where);
 
     if ($result["rid"] == NULL){
+        return false;
+    }
+    else {
+        return true;
+    }
+}
+
+function is_in_debug($pseudo){
+    $table = "user";
+    $select = "debug";
+    $where = "pseudo='".$pseudo."'";
+
+    $result = select_one($table, $select, $where);
+
+    if ($result["debug"] == 0){
         return false;
     }
     else {
@@ -178,6 +193,15 @@ switch($cmd){
     case "desactive_debug":
         $user_pseudo = strval(urldecode($_GET["pseudo"]));
         desactive_debug($user_pseudo);
+        break;
+    case "is_in_debug":
+        $user_pseudo = strval(urldecode($_GET["pseudo"]));
+        if (is_in_debug($pseudo)){
+            echo "<result>true</result>";
+        }
+        else{
+            echo "<result>false</result>";
+        }
         break;
     case "user_exist":
         $pseudo = strval(urldecode($_GET["pseudo"]));
