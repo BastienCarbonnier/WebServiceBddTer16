@@ -20,7 +20,7 @@ try {
 	die();
 }
 
-$rqt = strval(urldecode($_GET["rqt"]));
+$rqt = strval(urldecode($_GET["cmd"]));
 $table = strval(urldecode($_GET["from"]));
 
 
@@ -110,17 +110,22 @@ UPDATE user
 SET debug = 0
 WHERE pseudo ='Bastien Carbonnier';
 
+https://2018hlin601ter16.proj.info-ufr.univ-montp2.fr/WebServiceBddTer16/requeteur.php?cmd=desactive_debug&pseudo=Bastien%20Carbonnier
+
 Inserer affirmation
 INSERT INTO relationuser (n1,n2,t,user_id)
 VALUES (1452,1628,6,(SELECT id FROM user WHERE pseudo='Bastien Carbonnier'));
 
-https://2018hlin601ter16.proj.info-ufr.univ-montp2.fr/WebServiceBddTer16/requeteur.php?rqt=insert_rel&n1=123&n2=345&t=78&pseudo=Bastien%20Carbonnier
-https://2018hlin601ter16.proj.info-ufr.univ-montp2.fr/WebServiceBddTer16/requeteur.php?rqt=insert_rel&n1=123&n2=345&t=6&pseudo=Bastien%20Carbonnier
+https://2018hlin601ter16.proj.info-ufr.univ-montp2.fr/WebServiceBddTer16/requeteur.php?cmd=insert_rel&n1=123&n2=345&t=78&pseudo=Bastien%20Carbonnier
+https://2018hlin601ter16.proj.info-ufr.univ-montp2.fr/WebServiceBddTer16/requeteur.php?cmd=insert_rel&n1=123&n2=345&t=6&pseudo=Bastien%20Carbonnier
+
+
+
  */
 
 
 echo "<result>";
-switch($rqt){
+switch($cmd){
 	case "select":
 		$select = strval(urldecode($_GET["select"]));
 		$where = strval(urldecode($_GET["where"]));
@@ -140,6 +145,23 @@ switch($rqt){
     case "desactive_debug":
         $user_pseudo = strval(urldecode($_GET["pseudo"]));
         desactive_debug($user_pseudo);
+        break;
+    case "insert_user":
+        $pseudo = strval(urldecode($_GET["pseudo"]));
+
+        $attributs = "pseudo";
+        $values = $pseudo;
+
+        $table = "user";
+        $select = "id";
+        $where = "pseudo=".$pseudo;
+
+        $result = select_one($table, $select, $where);
+        print_r($result);
+        if ($result["id"] == NULL){
+            insert($table, $attributs, $values);
+        }
+
         break;
     case "insert_rel":
 
