@@ -25,7 +25,7 @@ $table = strval(urldecode($_GET["from"]));
 
 
 $recup = false;
-function selection($table, $select, $where){
+function select($table, $select, $where){
 	global $BD_JDM;
 
 	 $rqt="SELECT ".$select." FROM ".$table." WHERE ".$where;
@@ -34,7 +34,7 @@ function selection($table, $select, $where){
 	 return $query->fetchAll();
 }
 
-function insertion($table, $field, $values){
+function insert($table, $field, $values){
     global $BD_JDM;
 	$rqt="INSERT INTO ".$table." (".$field.") VALUES (".$values.");";
 	echo "</br>".$rqt."</br>";
@@ -68,18 +68,34 @@ function increment_nbr_recept($rid, $nbr_recept){
 }
 
 
-function afficheTableau($tab){
-	$strucAffich = "<table border = 1>";
+function afficheResultat($tab){
+    echo "nbr_resultat = ".sizeof($tab);
+	$strucAffich = "<resultat>";
 	for($i = 0; $i < sizeof($tab); $i++){
-		$strucAffich .= "<tr>";
+		$strucAffich .= "<id =".$i.">";
 		for($j = 0; $j < sizeof($tab[$i])/2; $j++){
 
-			$strucAffich .="<td>".$tab[$i][$j]."</td>";
+			$strucAffich .="<elt ".$i.">".$tab[$i][$j]."</elt>";
 		}
-		$strucAffich .="</tr>";
+		$strucAffich .="</id>";
 	}
-	$strucAffich .="</table>";
+	$strucAffich .="</resultat>";
 	echo $strucAffich;
+}
+
+function active_debug($user_pseudo){
+    global $BD_JDM;
+    $rqt="UPDATE user SET debug=1 WHERE pseudo=".$user_pseudo.";";
+
+    $query = $BD_JDM->prepare($rqt);
+    $query->execute();
+}
+function desactive_debug($user_pseudo){
+    global $BD_JDM;
+    $rqt="UPDATE user SET debug=0 WHERE pseudo=".$user_pseudo.";";
+
+    $query = $BD_JDM->prepare($rqt);
+    $query->execute();
 }
 /*
 
@@ -102,21 +118,28 @@ https://2018hlin601ter16.proj.info-ufr.univ-montp2.fr/WebServiceBddTer16/requete
  */
 
 
-
+echo "<result>";
 switch($rqt){
 	case "select":
 		$select = strval(urldecode($_GET["select"]));
 		$where = strval(urldecode($_GET["where"]));
+		$recup = select($table, $select, $where);
 
-		$recup = selection($table, $select, $where);
-
-		afficheTableau($recup);
+		afficheResultat($recup);
 		break;
 	case "insert":
 		$values = strval(urldecode($_GET["values"]));
 		$field = strval(urldecode($_GET["field"]));
-		insertion($table, $field, $values);
+		insert($table, $field, $values);
 		break;
+    case "active_debug":
+        $user_pseudo = strval(urldecode($_GET["pseudo"]));
+        active_debug($user_pseudo);
+        break;
+    case "desactive_debug":
+        $user_pseudo = strval(urldecode($_GET["pseudo"]));
+        desactive_debug($user_pseudo);
+        break;
     case "insert_rel":
 
         $n1 = strval(urldecode($_GET["n1"]));
@@ -134,7 +157,7 @@ switch($rqt){
 
             $values = $n1.",".$n2.",".$t.",(SELECT id FROM user WHERE pseudo='".$pseudo."')";
 
-            insertion($table, $attributs, $values);
+            insert($table, $attributs, $values);
         }
         else {
             increment_nbr_recept($result["rid"],$result["nbr_recept"]);
