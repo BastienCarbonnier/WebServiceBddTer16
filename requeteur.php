@@ -71,6 +71,7 @@ function increment_nbr_recept($rid, $nbr_recept){
 function afficheResultat($tab){
     echo "nbr_resultat = ".sizeof($tab);
 	$strucAffich = "<resultat>";
+
 	for($i = 0; $i < sizeof($tab); $i++){
 		$strucAffich .= "<id =".$i.">";
 		for($j = 0; $j < sizeof($tab[$i])/2; $j++){
