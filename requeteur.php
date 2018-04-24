@@ -98,6 +98,20 @@ function desactive_debug($user_pseudo){
     $query = $BD_JDM->prepare($rqt);
     $query->execute();
 }
+function is_user_exist ($pseudo){
+    $table = "user";
+    $select = "id";
+    $where = "pseudo='".$pseudo."'";
+
+    $result = select_one($table, $select, $where);
+    print_r($result);
+    if ($result["id"] == NULL){
+        return false;
+    }
+    else {
+        return true;
+    }
+}
 /*
 
 Activer mode debug
@@ -146,19 +160,18 @@ switch($cmd){
         $user_pseudo = strval(urldecode($_GET["pseudo"]));
         desactive_debug($user_pseudo);
         break;
+    case "user_exist":
+        $pseudo = strval(urldecode($_GET["pseudo"]));
+
+        break;
     case "insert_user":
         $pseudo = strval(urldecode($_GET["pseudo"]));
 
+        $table = "user";
         $attributs = "pseudo";
         $values = "'".$pseudo."'";
 
-        $table = "user";
-        $select = "id";
-        $where = "pseudo='".$pseudo."'";
-
-        $result = select_one($table, $select, $where);
-        print_r($result);
-        if ($result["id"] == NULL){
+        if (!is_user_exist($pseudo)){
             insert($table, $attributs, $values);
         }
 
