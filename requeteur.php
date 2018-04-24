@@ -125,7 +125,7 @@ switch($rqt){
         $select = "rid";
         $where = "n1=".$n1." AND n2=".$n2." AND t=".$t;
         $result = select_one($table, $select, $where);
-
+        echo $result;
         print_r($result);
 
         $attributs = "n1,n2,t,user_id";
