@@ -144,8 +144,7 @@ switch($rqt){
         }
         else {
             echo "<br/>";
-            print_r(intval($result["rid"]);
-            increment_nbr_recept(intval($result["rid"]),intval($result["nbr_result"]));
+            increment_nbr_recept($result["rid"],$result["nbr_recept"]);
         }
 
         /*
