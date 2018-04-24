@@ -67,7 +67,9 @@ function increment_nbr_recept($rid, $nbr_recept){
 
 	$rqt="UPDATE relationuser SET nbr_recept=".($nbr_recept+1)." WHERE rid=".$rid.";";
 	echo "</br>".$rqt."</br>";
-	$result = $BD_JDM->query($rqt);
+
+    $query = $BD_JDM->prepare($rqt);
+    $query->execute();
     return $result;
 }
 
@@ -141,6 +143,7 @@ switch($rqt){
             insertion($table, $attributs, $values);
         }
         else {
+            print_r($result);
             increment_nbr_recept($result["rid"],$result["nbr_result"]);
         }
 
