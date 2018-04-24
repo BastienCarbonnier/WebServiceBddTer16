@@ -101,9 +101,9 @@ switch($rqt){
         $pseudo = strval(urldecode($_GET["pseudo"]));
 
         $table = "relationuser";
-        $attributs = "(n1,n2,t,user_id)";
+        $attributs = "n1,n2,t,user_id";
 
-        $values = "(".$n1.",".$n2.",".$t.",(SELECT id FROM user WHERE pseudo='".$pseudo."'));";
+        $values = $n1.",".$n2.",".$t.",(SELECT id FROM user WHERE pseudo='".$pseudo."')";
 
 
         $result = insertion($table, $attributs, $values)
