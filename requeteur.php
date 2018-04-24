@@ -46,9 +46,8 @@ function select_one ($table, $select, $where){
     global $BD_JDM;
 
 	 $rqt="SELECT ".$select." FROM ".$table." WHERE ".$where;
-	 $query = $BD_JDM->prepare($rqt);
-	 $query->execute();
-	 return $query->fetch();
+	 $result = $BD_JDM->query($rqt);
+	 return $result->fetch();
 }
 /*
 UPDATE relationuser
@@ -125,8 +124,7 @@ switch($rqt){
         $select = "rid";
         $where = "n1=".$n1." AND n2=".$n2." AND t=".$t;
         $result = select_one($table, $select, $where);
-        echo $result;
-        print_r($result);
+
 
         $attributs = "n1,n2,t,user_id";
 
