@@ -143,7 +143,8 @@ switch($rqt){
             insertion($table, $attributs, $values);
         }
         else {
-            print_r($result);
+            echo "<br/>";
+            echo($result["rid"]);
             increment_nbr_recept($result["rid"],$result["nbr_result"]);
         }
 
