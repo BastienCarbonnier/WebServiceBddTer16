@@ -133,11 +133,13 @@ switch($rqt){
 
         $result = select_one($table, $select, $where);
 
-        print_r($result);
-        echo "<br/>";
-        echo "<br/>";
-        echo "<br/>";
-        echo $result["rid"];
+        if ($result["rid"] == NULL){
+            echo "Non existante";
+        }
+        else {
+            echo $result["rid"];
+        }
+
         /*
         $attributs = "n1,n2,t,user_id";
 
