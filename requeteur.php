@@ -93,9 +93,12 @@ switch($rqt){
         $t = strval(urldecode($_GET["t"]));
         $pseudo = strval(urldecode($_GET["pseudo"]));
 
-        $requete = "INSERT INTO relationuser (n1,n2,t,user_id)
-                    VALUES (".$n1.",".$n2.",".$t.",(SELECT id FROM user WHERE pseudo='".$pseudo."'));"
+        $table = "relationuser";
+        $attributs = " (n1,n2,t,user_id)";
 
+        $values = "(".$n1.",".$n2.",".$t.",(SELECT id FROM user WHERE pseudo='".$pseudo."'));";
+        $requete = "INSERT INTO ".$table.$attributs." VALUES ".$values;
+        
         echo "</br>".$requete."</br>";
         $query = $BD_JDM->prepare($requete);
         $query->execute();
