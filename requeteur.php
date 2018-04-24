@@ -42,6 +42,29 @@ function insertion($table, $field, $values){
 	$result = $BD_JDM->query($rqt);
     return $result;
 }
+function select_one ($table, $select, $where){
+    global $BD_JDM;
+
+	 $rqt="SELECT ".$select." FROM ".$table." WHERE ".$where;
+	 $query = $BD_JDM->prepare($rqt);
+	 $query->execute();
+	 return $query->fetch();
+}
+/*
+UPDATE relationuser
+SET nbr_recept = (Select nbr_recept FROM relationuser WHERE rid=6)+1
+WHERE rid=6;
+*/
+function increment_nbr_recept($table, $field, $values){
+    global $BD_JDM;
+
+
+	$rqt="UPDATE ".$table." SET ".$field."=".$values.");";
+	echo "</br>".$rqt."</br>";
+	$result = $BD_JDM->query($rqt);
+    return $result;
+}
+
 
 function afficheTableau($tab){
 	$strucAffich = "<table border = 1>";
@@ -99,15 +122,20 @@ switch($rqt){
         $t = strval(urldecode($_GET["t"]));
         $pseudo = strval(urldecode($_GET["pseudo"]));
 
-        $table = "relationuser";
+        $select = "rid";
+        $where = "n1=".$n1." AND n2=".$n2." AND t=".$t;
+        $result = selection($table, $select, $where);
+
+        print_r($result);
+
         $attributs = "n1,n2,t,user_id";
 
         $values = $n1.",".$n2.",".$t.",(SELECT id FROM user WHERE pseudo='".$pseudo."')";
 
-        $result = insertion($table, $attributs, $values);
+        insertion($table, $attributs, $values);
 
-        print_r($result);
         break;
+
 }
 
 
