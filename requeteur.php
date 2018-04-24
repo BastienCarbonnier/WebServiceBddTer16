@@ -53,7 +53,8 @@ function select_one($table, $select, $where){
 	 $query = $BD_JDM->prepare($rqt);
 	 $query->execute();
 
-	 return $query->fetch()[0];
+     $result = $query->fetch();
+	 return $result[0];
 }
 /*
 UPDATE relationuser
