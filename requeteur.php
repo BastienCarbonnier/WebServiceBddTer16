@@ -136,7 +136,7 @@ switch($rqt){
         echo "<br/>";
         echo "<br/>";
         echo "<br/>";
-        print_r($result[0]);
+        echo $result[0]->rid;
         /*
         $attributs = "n1,n2,t,user_id";
 
