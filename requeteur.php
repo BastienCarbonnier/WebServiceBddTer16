@@ -54,6 +54,7 @@ function select_one($table, $select, $where){
 	 $query->execute();
 
      $result = $query->fetch();
+     print_r($result);
 	 return $result[0];
 }
 /*
