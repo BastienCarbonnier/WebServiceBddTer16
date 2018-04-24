@@ -36,9 +36,8 @@ function selection($table, $select, $where){
 }
 
 function insertion($table, $field, $values){
-	global $BD_JDM;
 
-	$rqt="INSERT INTO ".$table." (".$field.") VALUES (".$values.")";
+	$rqt="INSERT INTO ".$table." (".$field.") VALUES (".$values.");";
 	echo "</br>".$rqt."</br>";
 	$query = $BD_JDM->prepare($rqt);
 	$query->execute();
@@ -104,7 +103,6 @@ switch($rqt){
         $attributs = "n1,n2,t,user_id";
 
         $values = $n1.",".$n2.",".$t.",(SELECT id FROM user WHERE pseudo='".$pseudo."')";
-
 
         $result = insertion($table, $attributs, $values)
 
