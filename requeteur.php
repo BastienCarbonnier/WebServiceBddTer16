@@ -75,7 +75,7 @@ function afficheResultat($tab){
 		$strucAffich .= "<id =".$i.">";
 		for($j = 0; $j < sizeof($tab[$i])/2; $j++){
 
-			$strucAffich .="<elt ".$i.">".$tab[$i][$j]."</elt>";
+			$strucAffich .="<".(key($tab[$i])).">".$tab[$i][$j]."</"..(key($tab[$i]))..">";
 		}
 		$strucAffich .="</id>";
 	}
