@@ -115,7 +115,7 @@ switch($rqt){
         $n2 = strval(urldecode($_GET["n2"]));
         $t = strval(urldecode($_GET["t"]));
         $pseudo = strval(urldecode($_GET["pseudo"]));
-
+        $table = "relationuser";
         $select = "rid";
         $where = "n1=".$n1." AND n2=".$n2." AND t=".$t;
         echo "before selection";
