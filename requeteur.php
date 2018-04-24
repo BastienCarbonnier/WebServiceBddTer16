@@ -150,11 +150,11 @@ switch($cmd){
         $pseudo = strval(urldecode($_GET["pseudo"]));
 
         $attributs = "pseudo";
-        $values = $pseudo;
+        $values = "'".$pseudo."'";
 
         $table = "user";
         $select = "id";
-        $where = "pseudo=".$pseudo;
+        $where = "pseudo='".$pseudo."'";
 
         $result = select_one($table, $select, $where);
         print_r($result);
