@@ -39,8 +39,8 @@ function insertion($table, $field, $values){
     global $BD_JDM;
 	$rqt="INSERT INTO ".$table." (".$field.") VALUES (".$values.");";
 	echo "</br>".$rqt."</br>";
-	$query = $BD_JDM->prepare($rqt);
-	$query->execute();
+	$result = $BD_JDM->query($rqt);
+    return $result;
 }
 
 function afficheTableau($tab){
@@ -106,7 +106,7 @@ switch($rqt){
 
         $result = insertion($table, $attributs, $values);
 
-        echo($result);
+        print_r($result);
         break;
 }
 
