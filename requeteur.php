@@ -26,11 +26,9 @@ $table = strval(urldecode($_GET["from"]));
 
 $recup = false;
 function selection($table, $select, $where){
-	echo "<br/>";
 	global $BD_JDM;
 
 	 $rqt="SELECT ".$select." FROM ".$table." WHERE ".$where;
-     echo $rqt;
 	 $query = $BD_JDM->prepare($rqt);
 	 $query->execute();
 	 return $query->fetchAll();
@@ -45,16 +43,14 @@ function insertion($table, $field, $values){
 }
 
 function select_one($table, $select, $where){
-	echo "<br/>";
 	global $BD_JDM;
 
 	 $rqt="SELECT ".$select." FROM ".$table." WHERE ".$where;
-     echo $rqt;
+
 	 $query = $BD_JDM->prepare($rqt);
 	 $query->execute();
 
      $result = $query->fetch();
-     print_r($result);
 	 return $result;
 }
 /*
@@ -64,10 +60,7 @@ WHERE rid=6;
 */
 function increment_nbr_recept($rid, $nbr_recept){
     global $BD_JDM;
-
-
-	$rqt="UPDATE relationuser SET nbr_recept=".($nbr_recept+1)." WHERE rid=".$rid.";";
-	echo "</br>".$rqt."</br>";
+    $rqt="UPDATE relationuser SET nbr_recept=".($nbr_recept+1)." WHERE rid=".$rid.";";
 
     $query = $BD_JDM->prepare($rqt);
     $query->execute();
@@ -105,7 +98,7 @@ INSERT INTO relationuser (n1,n2,t,user_id)
 VALUES (1452,1628,6,(SELECT id FROM user WHERE pseudo='Bastien Carbonnier'));
 
 https://2018hlin601ter16.proj.info-ufr.univ-montp2.fr/WebServiceBddTer16/requeteur.php?rqt=insert_rel&n1=123&n2=345&t=78&pseudo=Bastien%20Carbonnier
-
+https://2018hlin601ter16.proj.info-ufr.univ-montp2.fr/WebServiceBddTer16/requeteur.php?rqt=insert_rel&n1=123&n2=345&t=6&pseudo=Bastien%20Carbonnier
  */
 
 
@@ -144,8 +137,6 @@ switch($rqt){
             insertion($table, $attributs, $values);
         }
         else {
-            echo "<br/>";
-            print_r($result);
             increment_nbr_recept($result["rid"],$result["nbr_recept"]);
         }
 
