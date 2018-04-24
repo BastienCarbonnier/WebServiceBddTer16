@@ -55,7 +55,7 @@ function select_one($table, $select, $where){
 
      $result = $query->fetch();
      print_r($result);
-	 return $result[0];
+	 return $result;
 }
 /*
 UPDATE relationuser
