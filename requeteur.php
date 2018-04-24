@@ -104,7 +104,7 @@ switch($rqt){
 
         $values = $n1.",".$n2.",".$t.",(SELECT id FROM user WHERE pseudo='".$pseudo."')";
 
-        $result = insertion($table, $attributs, $values)
+        $result = insertion($table, $attributs, $values);
 
         //print_r($result);
         break;
