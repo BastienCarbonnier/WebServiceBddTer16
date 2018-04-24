@@ -53,11 +53,8 @@ function select_one($table, $select, $where){
      $result = $query->fetch();
 	 return $result;
 }
-/*
-UPDATE relationuser
-SET nbr_recept = (Select nbr_recept FROM relationuser WHERE rid=6)+1
-WHERE rid=6;
-*/
+
+
 function increment_nbr_recept($rid, $nbr_recept){
     global $BD_JDM;
     $rqt="UPDATE relationuser SET nbr_recept=".($nbr_recept+1)." WHERE rid=".$rid.";";
@@ -155,11 +152,11 @@ https://2018hlin601ter16.proj.info-ufr.univ-montp2.fr/WebServiceBddTer16/requete
 
 
 
+
  */
 
-
-echo "<result>";
 switch($cmd){
+    /*
 	case "select":
 		$select = strval(urldecode($_GET["select"]));
 		$where = strval(urldecode($_GET["where"]));
@@ -167,11 +164,13 @@ switch($cmd){
 
 		afficheResultat($recup);
 		break;
+
 	case "insert":
 		$values = strval(urldecode($_GET["values"]));
 		$field = strval(urldecode($_GET["field"]));
 		insert($table, $field, $values);
 		break;
+    */
     case "active_debug":
         $user_pseudo = strval(urldecode($_GET["pseudo"]));
         active_debug($user_pseudo);
@@ -204,10 +203,11 @@ switch($cmd){
         break;
     case "insert_user":
         $pseudo = strval(urldecode($_GET["pseudo"]));
+        $idBot = strval(urldecode($_GET["idBot"]));
 
         $table = "user";
-        $attributs = "pseudo";
-        $values = "'".$pseudo."'";
+        $attributs = "pseudo,idBot";
+        $values = "'".$pseudo."'".",'".$idBot."'";
 
         if (!is_user_exist($pseudo)){
             insert($table, $attributs, $values);
@@ -233,9 +233,6 @@ switch($cmd){
             increment_nbr_recept($result["rid"],$result["nbr_recept"]);
         }
 
-        /*
-
-        */
         break;
 
 }
