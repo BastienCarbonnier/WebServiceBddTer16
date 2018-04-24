@@ -86,14 +86,14 @@ function afficheResultat($tab){
 
 function active_debug($user_pseudo){
     global $BD_JDM;
-    $rqt="UPDATE user SET debug=1 WHERE pseudo=".$user_pseudo.";";
+    $rqt="UPDATE user SET debug=1 WHERE pseudo='".$user_pseudo."';";
 
     $query = $BD_JDM->prepare($rqt);
     $query->execute();
 }
 function desactive_debug($user_pseudo){
     global $BD_JDM;
-    $rqt="UPDATE user SET debug=0 WHERE pseudo=".$user_pseudo.";";
+    $rqt="UPDATE user SET debug=0 WHERE pseudo='".$user_pseudo."';";
 
     $query = $BD_JDM->prepare($rqt);
     $query->execute();
@@ -125,7 +125,7 @@ switch($rqt){
 		$select = strval(urldecode($_GET["select"]));
 		$where = strval(urldecode($_GET["where"]));
 		$recup = select($table, $select, $where);
-        print_r($recup);
+
 		afficheResultat($recup);
 		break;
 	case "insert":
