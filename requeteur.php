@@ -52,7 +52,10 @@ function select_one($table, $select, $where){
      echo $rqt;
 	 $query = $BD_JDM->prepare($rqt);
 	 $query->execute();
-	 return $query->fetch();
+     $result = $query->fetchAll();
+
+     $firstresult = $result[0];
+	 return $result[0];
 }
 /*
 UPDATE relationuser
