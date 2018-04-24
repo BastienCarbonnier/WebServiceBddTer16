@@ -61,11 +61,11 @@ UPDATE relationuser
 SET nbr_recept = (Select nbr_recept FROM relationuser WHERE rid=6)+1
 WHERE rid=6;
 */
-function increment_nbr_recept($table, $field, $values){
+function increment_nbr_recept($rid, $nbr_recept){
     global $BD_JDM;
 
 
-	$rqt="UPDATE ".$table." SET ".$field."=".$values.");";
+	$rqt="UPDATE relationuser SET nbr_recept=".($nbr_recept+1)." WHERE rid=".$rid.";";
 	echo "</br>".$rqt."</br>";
 	$result = $BD_JDM->query($rqt);
     return $result;
@@ -128,24 +128,24 @@ switch($rqt){
         $t = strval(urldecode($_GET["t"]));
         $pseudo = strval(urldecode($_GET["pseudo"]));
         $table = "relationuser";
-        $select = "rid";
+        $select = "rid,nbr_recept";
         $where = "n1=".$n1." AND n2=".$n2." AND t=".$t;
 
         $result = select_one($table, $select, $where);
 
         if ($result["rid"] == NULL){
-            echo "Non existante";
+            $attributs = "n1,n2,t,user_id";
+
+            $values = $n1.",".$n2.",".$t.",(SELECT id FROM user WHERE pseudo='".$pseudo."')";
+
+            insertion($table, $attributs, $values);
         }
         else {
-            echo $result["rid"];
+            increment_nbr_recept($result["rid"],$result["nbr_result"]);
         }
 
         /*
-        $attributs = "n1,n2,t,user_id";
 
-        $values = $n1.",".$n2.",".$t.",(SELECT id FROM user WHERE pseudo='".$pseudo."')";
-
-        insertion($table, $attributs, $values);
         */
         break;
 
