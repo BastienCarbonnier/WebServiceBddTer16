@@ -124,7 +124,7 @@ switch($rqt){
 		$select = strval(urldecode($_GET["select"]));
 		$where = strval(urldecode($_GET["where"]));
 		$recup = select($table, $select, $where);
-
+        print_r($recup);
 		afficheResultat($recup);
 		break;
 	case "insert":
