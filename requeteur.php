@@ -112,6 +112,21 @@ function is_user_exist ($pseudo){
         return true;
     }
 }
+
+function is_relation_exist ($n1,$n2,$t){
+    $table = "relationuser";
+    $select = "rid,nbr_recept";
+    $where = "n1=".$n1." AND n2=".$n2." AND t=".$t;
+
+    $result = select_one($table, $select, $where);
+
+    if ($result["rid"] == NULL){
+        return false;
+    }
+    else {
+        return true;
+    }
+}
 /*
 
 Activer mode debug
@@ -132,6 +147,11 @@ VALUES (1452,1628,6,(SELECT id FROM user WHERE pseudo='Bastien Carbonnier'));
 
 https://2018hlin601ter16.proj.info-ufr.univ-montp2.fr/WebServiceBddTer16/requeteur.php?cmd=insert_rel&n1=123&n2=345&t=78&pseudo=Bastien%20Carbonnier
 https://2018hlin601ter16.proj.info-ufr.univ-montp2.fr/WebServiceBddTer16/requeteur.php?cmd=insert_rel&n1=123&n2=345&t=6&pseudo=Bastien%20Carbonnier
+
+insert user :
+https://2018hlin601ter16.proj.info-ufr.univ-montp2.fr/WebServiceBddTer16/requeteur.php?cmd=insert_user&pseudo=Thomas
+
+
 
 
 
@@ -162,7 +182,25 @@ switch($cmd){
         break;
     case "user_exist":
         $pseudo = strval(urldecode($_GET["pseudo"]));
+        if (is_user_exist($pseudo)){
+            echo "<result>true</result>";
+        }
+        else {
+            echo "<result>false</result>";
+        }
+        break;
+    case "relation_exist":
+        $n1 = strval(urldecode($_GET["n1"]));
+        $n2 = strval(urldecode($_GET["n2"]));
+        $t = strval(urldecode($_GET["t"]));
 
+
+        if (is_relation_exist($n1,$n2,$t)){
+            echo "<result>true</result>";
+        }
+        else {
+            echo "<result>false</result>";
+        }
         break;
     case "insert_user":
         $pseudo = strval(urldecode($_GET["pseudo"]));
@@ -183,12 +221,8 @@ switch($cmd){
         $t = strval(urldecode($_GET["t"]));
         $pseudo = strval(urldecode($_GET["pseudo"]));
         $table = "relationuser";
-        $select = "rid,nbr_recept";
-        $where = "n1=".$n1." AND n2=".$n2." AND t=".$t;
 
-        $result = select_one($table, $select, $where);
-
-        if ($result["rid"] == NULL){
+        if (!is_relation_exist($n1,$n2,$t)){
             $attributs = "n1,n2,t,user_id";
 
             $values = $n1.",".$n2.",".$t.",(SELECT id FROM user WHERE pseudo='".$pseudo."')";
