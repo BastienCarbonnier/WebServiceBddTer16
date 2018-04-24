@@ -33,17 +33,6 @@ function selection($table, $select, $where){
 	 $query = $BD_JDM->prepare($rqt);
 	 $query->execute();
 	 return $query->fetchAll();
-
-
-	/* Ne marche pas
- 	$query = $BD_JDM->prepare("SELECT :selection FROM :table WHERE :clause ");
-	$query->bindValue(":selection", $select);
-	$query->bindValue(":table", $table);
-	$query->bindValue(":clause", $where);
-	$query->execute();
-	*/
-
-
 }
 
 function insertion($table, $field, $values){
@@ -68,7 +57,22 @@ function afficheTableau($tab){
 	$strucAffich .="</table>";
 	echo $strucAffich;
 }
+/*
 
+Activer mode debug
+UPDATE user
+SET debug = 1
+WHERE pseudo ='Bastien Carbonnier';
+
+desactiver Mode debug
+UPDATE user
+SET debug = 0
+WHERE pseudo ='Bastien Carbonnier';
+
+Inserer affirmation
+INSERT INTO relationuser (n1,n2,t,user_id)
+VALUES (1452,1628,6,(SELECT id FROM user WHERE pseudo='Bastien Carbonnier'));
+ */
 switch($rqt){
 	case "select":
 		$select = strval(urldecode($_GET["select"]));
@@ -83,6 +87,19 @@ switch($rqt){
 		$field = strval(urldecode($_GET["field"]));
 		insertion($table, $field, $values);
 		break;
+    case "insert_rel":
+        $n1 = strval(urldecode($_GET["n1"]));
+        $n2 = strval(urldecode($_GET["n2"]));
+        $t = strval(urldecode($_GET["t"]));
+        $pseudo = strval(urldecode($_GET["pseudo"]));
+
+        $requete = "INSERT INTO relationuser (n1,n2,t,user_id)
+                    VALUES (".$n1.",".$n2.",".$t.",(SELECT id FROM user WHERE pseudo='".$pseudo."'));"
+
+        echo "</br>".$requete."</br>";
+        $query = $BD_JDM->prepare($requete);
+        $query->execute();
+        break;
 }
 
 
