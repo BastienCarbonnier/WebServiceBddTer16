@@ -72,7 +72,13 @@ WHERE pseudo ='Bastien Carbonnier';
 Inserer affirmation
 INSERT INTO relationuser (n1,n2,t,user_id)
 VALUES (1452,1628,6,(SELECT id FROM user WHERE pseudo='Bastien Carbonnier'));
+
+https://2018hlin601ter16.proj.info-ufr.univ-montp2.fr/WebServiceBddTer16/requeteur.php?rqt=insert_rel&n1=123&n2=345&t=78&pseudo=Bastien%20Carbonnier
+
  */
+
+
+
 switch($rqt){
 	case "select":
 		$select = strval(urldecode($_GET["select"]));
@@ -88,20 +94,21 @@ switch($rqt){
 		insertion($table, $field, $values);
 		break;
     case "insert_rel":
+
         $n1 = strval(urldecode($_GET["n1"]));
         $n2 = strval(urldecode($_GET["n2"]));
         $t = strval(urldecode($_GET["t"]));
         $pseudo = strval(urldecode($_GET["pseudo"]));
 
         $table = "relationuser";
-        $attributs = " (n1,n2,t,user_id)";
+        $attributs = "(n1,n2,t,user_id)";
 
         $values = "(".$n1.",".$n2.",".$t.",(SELECT id FROM user WHERE pseudo='".$pseudo."'));";
-        $requete = "INSERT INTO ".$table.$attributs." VALUES ".$values;
-        
-        echo "</br>".$requete."</br>";
-        $query = $BD_JDM->prepare($requete);
-        $query->execute();
+
+
+        $result = insertion($table, $attributs, $values)
+
+        print_r($result);
         break;
 }
 
