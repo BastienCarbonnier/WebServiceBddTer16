@@ -42,13 +42,7 @@ function insertion($table, $field, $values){
 	$result = $BD_JDM->query($rqt);
     return $result;
 }
-function select_one ($table, $select, $where){
-    global $BD_JDM;
 
-	 $rqt="SELECT ".$select." FROM ".$table." WHERE ".$where;
-	 $result = $BD_JDM->query($rqt);
-	 return $result->fetch();
-}
 /*
 UPDATE relationuser
 SET nbr_recept = (Select nbr_recept FROM relationuser WHERE rid=6)+1
@@ -123,9 +117,11 @@ switch($rqt){
 
         $select = "rid";
         $where = "n1=".$n1." AND n2=".$n2." AND t=".$t;
-        $result = select_one($table, $select, $where);
+        echo "before selection";
+        $result = selection($table, $select, $where);
 
-
+        print_r($result);
+        echo "after print_r";
         $attributs = "n1,n2,t,user_id";
 
         $values = $n1.",".$n2.",".$t.",(SELECT id FROM user WHERE pseudo='".$pseudo."')";
