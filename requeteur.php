@@ -108,7 +108,7 @@ switch($rqt){
 
         $result = insertion($table, $attributs, $values)
 
-        print_r($result);
+        //print_r($result);
         break;
 }
 
