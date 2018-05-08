@@ -113,7 +113,7 @@ function is_user_exist ($pseudo){
 function is_relation_exist ($n1,$n2,$t){
     $table = "relationuser";
     $select = "rid,nbr_recept";
-    $where = "n1=".$n1." AND n2=".$n2." AND t=".$t;
+    $where = "n1_s=".$n1." AND n2_s=".$n2." AND t=".$t;
 
     $result = select_one($table, $select, $where);
 
@@ -137,6 +137,20 @@ function is_in_debug($pseudo){
     }
     else {
         return true;
+    }
+}
+
+function getWordId($n){
+    $r_fw_id = select_one("node", "eid", "n=".$n);
+
+    if ($r_fw_id["eid"] == NULL){
+        $r_min= select_one("node", "MIN(eid)", "");
+        $min = intval($r_min) - 1;
+        insert("node", "eid,n,t,w",$min.",".$n.",1,0");
+        return $min;
+    }
+    else {
+        return $r_fw_id["eid"];
     }
 }
 /*
@@ -247,9 +261,13 @@ switch($cmd){
         $table = "relationuser";
 
         if (!is_relation_exist($n1,$n2,$t)){
-            $attributs = "n1,n2,t,user_id";
+            $attributs = "n1,n2,n1_s,n2_s,t,user_id";
 
-            $values = $n1.",".$n2.",".$t.",(SELECT id FROM user WHERE pseudo='".$pseudo."')";
+            $n1_id = getWordId($n1);
+            
+            $n2_id = getWordId($n2);
+
+            $values = $n1_id.",".$n2_id.",".$n1.",".$n2.",".$t.",(SELECT id FROM user WHERE pseudo='".$pseudo."')";
 
             insert($table, $attributs, $values);
         }
