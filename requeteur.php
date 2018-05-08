@@ -142,7 +142,7 @@ function is_in_debug($pseudo){
 
 function getWordId($n){
     echo "debut getWordId\n";
-    $r_fw_id = select_one("node", "eid", "n=".$n);
+    $r_fw_id = select_one("node", "eid", "n='".$n."'");
     echo "après select one\n";
     if ($r_fw_id["eid"] == NULL){
         $r_min= select_one("node", "MIN(eid)", "");
