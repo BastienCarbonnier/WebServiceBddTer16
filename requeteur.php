@@ -268,7 +268,7 @@ switch($cmd){
 
             $n2_id = getWordId($n2);
 
-            $values = $n1_id.",".$n2_id.",".$n1.",".$n2.",".$t.",(SELECT id FROM user WHERE pseudo='".$pseudo."')";
+            $values = $n1_id.",".$n2_id.",'".$n1."','".$n2."',".$t.",(SELECT id FROM user WHERE pseudo='".$pseudo."')";
 
             insert($table, $attributs, $values);
         }
