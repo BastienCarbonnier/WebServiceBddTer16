@@ -42,6 +42,14 @@ function insert($table, $field, $values){
     return $result;
 }
 
+function update($table, $set, $where){
+    global $BD_JDM;
+	$rqt="UPDATE ".$table." ".$set." WHERE ".$where.";";
+	echo "</br>".$rqt."</br>";
+	$result = $BD_JDM->query($rqt);
+    return $result;
+}
+
 function select_one($table, $select, $where){
 	global $BD_JDM;
 
@@ -109,6 +117,17 @@ function is_user_exist ($pseudo){
         return true;
     }
 }
+
+function getUserId ($pseudo){
+    $table = "user";
+    $select = "id";
+    $where = "pseudo='".$pseudo."'";
+
+    $result = select_one($table, $select, $where);
+
+    return $result["id"];
+}
+
 
 function is_relation_exist ($n1,$n2,$t){
     $table = "relationuser";
@@ -250,6 +269,12 @@ switch($cmd){
 
         if (!is_user_exist($pseudo)){
             insert($table, $attributs, $values);
+        }
+        else{
+            $set = "pseudo ='".$pseudo."',idBot ='".$idBot."'";
+            $idUser = getUserId($pseudo);
+            $where = "id=".$idUser;
+            update($table, $set, $where);
         }
 
         break;
