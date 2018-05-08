@@ -28,7 +28,7 @@ $recup = false;
 function select($table, $select, $where){
 	global $BD_JDM;
 
-	 $rqt="SELECT ".$select." FROM ".$table." WHERE ".$where."\n";
+	 $rqt="SELECT ".$select." FROM ".$table." WHERE ".$where;
 	 $query = $BD_JDM->prepare($rqt);
 	 $query->execute();
 	 return $query->fetchAll();
@@ -36,8 +36,8 @@ function select($table, $select, $where){
 
 function insert($table, $field, $values){
     global $BD_JDM;
-	$rqt="INSERT INTO ".$table." (".$field.") VALUES (".$values.");"."\n";
-	echo "</br>".$rqt."</br>";
+	$rqt="INSERT INTO ".$table." (".$field.") VALUES (".$values.");";
+	echo "</br>".$rqt."\n"."</br>";
 	$result = $BD_JDM->query($rqt);
     return $result;
 }
@@ -45,8 +45,8 @@ function insert($table, $field, $values){
 function select_one($table, $select, $where){
 	global $BD_JDM;
 
-	 $rqt="SELECT ".$select." FROM ".$table." WHERE ".$where."\n";
-     echo $rqt;
+	 $rqt="SELECT ".$select." FROM ".$table." WHERE ".$where;
+     echo $rqt."\n";
 	 $query = $BD_JDM->prepare($rqt);
 	 $query->execute();
 
