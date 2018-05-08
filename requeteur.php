@@ -168,7 +168,7 @@ function getWordId($n){
     echo "après select one\n";
     if ($r_fw_id["eid"] == NULL){
         $r_min= select_one("node", "MIN(eid)","");
-        $min = intval($r_min) - 1;
+        $min = intval($r_min["eid"]) - 1;
         insert("node", "eid,n,t,w",$min.",'".$n."',1,0");
         return $min;
     }
