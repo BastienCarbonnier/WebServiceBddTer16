@@ -44,7 +44,7 @@ function insert($table, $field, $values){
 
 function update($table, $set, $where){
     global $BD_JDM;
-	$rqt="UPDATE ".$table." ".$set." WHERE ".$where.";";
+	$rqt="UPDATE ".$table." SET ".$set." WHERE ".$where.";";
 	echo "</br>".$rqt."</br>";
 	$result = $BD_JDM->query($rqt);
     return $result;
