@@ -15,10 +15,7 @@ try {
 	$BD_JDM = new PDO('mysql:host=localhost;dbname='.$user, $user, $mdp);
 	$BD_JDM->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
 
-} catch (PDOException $e) {
-	print "Erreur !: " . $e->getMessage() . "<br/>";
-	die();
-}
+
 
 $cmd = strval(urldecode($_GET["cmd"]));
 $table = strval(urldecode($_GET["from"]));
@@ -280,7 +277,10 @@ switch($cmd){
 
 }
 
-
+} catch (PDOException $e) {
+	print "Erreur !: " . $e->getMessage() . "<br/>";
+	die();
+}
 ?>
 
 
