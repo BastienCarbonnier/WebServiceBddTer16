@@ -113,7 +113,7 @@ function is_user_exist ($pseudo){
 function is_relation_exist ($n1,$n2,$t){
     $table = "relationuser";
     $select = "rid,nbr_recept";
-    $where = "n1_s=".$n1." AND n2_s=".$n2." AND t=".$t;
+    $where = "n1_s='".$n1."' AND n2_s='".$n2."' AND t=".$t;
 
     $result = select_one($table, $select, $where);
 
