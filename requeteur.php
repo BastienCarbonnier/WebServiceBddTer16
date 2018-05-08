@@ -263,7 +263,7 @@ switch($cmd){
 
         if (!is_relation_exist($n1,$n2,$t)){
             $attributs = "n1,n2,n1_s,n2_s,t,user_id";
-
+            echo "Avant getWordId\n";
             $n1_id = getWordId($n1);
 
             $n2_id = getWordId($n2);
