@@ -146,7 +146,7 @@ function getWordId($n){
     if ($r_fw_id["eid"] == NULL){
         $r_min= select_one("node", "MIN(eid)", "");
         $min = intval($r_min) - 1;
-        insert("node", "eid,n,t,w",$min.",".$n.",1,0");
+        insert("node", "eid,n,t,w",$min.",'".$n."',1,0");
         return $min;
     }
     else {
@@ -264,7 +264,7 @@ switch($cmd){
             $attributs = "n1,n2,n1_s,n2_s,t,user_id";
 
             $n1_id = getWordId($n1);
-            
+
             $n2_id = getWordId($n2);
 
             $values = $n1_id.",".$n2_id.",".$n1.",".$n2.",".$t.",(SELECT id FROM user WHERE pseudo='".$pseudo."')";
