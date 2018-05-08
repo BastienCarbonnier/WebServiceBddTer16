@@ -46,7 +46,7 @@ function select_one($table, $select, $where){
 	global $BD_JDM;
 
 	 $rqt="SELECT ".$select." FROM ".$table." WHERE ".$where;
-     echo $rqt."\n";
+     echo $rqt;
 	 $query = $BD_JDM->prepare($rqt);
 	 $query->execute();
 
