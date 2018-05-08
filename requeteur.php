@@ -53,7 +53,10 @@ function update($table, $set, $where){
 function select_one($table, $select, $where){
 	global $BD_JDM;
 
-	 $rqt="SELECT ".$select." FROM ".$table." WHERE ".$where;
+    if ($where != ""){
+        $where = " WHERE ".$where;
+    }
+	 $rqt="SELECT ".$select." FROM ".$table.$where;
      echo $rqt;
 	 $query = $BD_JDM->prepare($rqt);
 	 $query->execute();
@@ -164,7 +167,7 @@ function getWordId($n){
     $r_fw_id = select_one("node", "eid", "n='".$n."'");
     echo "après select one\n";
     if ($r_fw_id["eid"] == NULL){
-        $r_min= select_one("node", "MIN(eid)", "");
+        $r_min= select_one("node", "MIN(eid)","");
         $min = intval($r_min) - 1;
         insert("node", "eid,n,t,w",$min.",'".$n."',1,0");
         return $min;
