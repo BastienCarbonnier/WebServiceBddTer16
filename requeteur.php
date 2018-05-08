@@ -15,7 +15,10 @@ try {
 	$BD_JDM = new PDO('mysql:host=localhost;dbname='.$user, $user, $mdp);
 	$BD_JDM->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
 
-
+} catch (PDOException $e) {
+	print "Erreur !: " . $e->getMessage() . "<br/>";
+	die();
+}
 
 $cmd = strval(urldecode($_GET["cmd"]));
 $table = strval(urldecode($_GET["from"]));
@@ -25,7 +28,7 @@ $recup = false;
 function select($table, $select, $where){
 	global $BD_JDM;
 
-	 $rqt="SELECT ".$select." FROM ".$table." WHERE ".$where;
+	 $rqt="SELECT ".$select." FROM ".$table." WHERE ".$where."\n";
 	 $query = $BD_JDM->prepare($rqt);
 	 $query->execute();
 	 return $query->fetchAll();
@@ -33,7 +36,7 @@ function select($table, $select, $where){
 
 function insert($table, $field, $values){
     global $BD_JDM;
-	$rqt="INSERT INTO ".$table." (".$field.") VALUES (".$values.");";
+	$rqt="INSERT INTO ".$table." (".$field.") VALUES (".$values.");"."\n";
 	echo "</br>".$rqt."</br>";
 	$result = $BD_JDM->query($rqt);
     return $result;
@@ -42,7 +45,7 @@ function insert($table, $field, $values){
 function select_one($table, $select, $where){
 	global $BD_JDM;
 
-	 $rqt="SELECT ".$select." FROM ".$table." WHERE ".$where;
+	 $rqt="SELECT ".$select." FROM ".$table." WHERE ".$where."\n";
      echo $rqt;
 	 $query = $BD_JDM->prepare($rqt);
 	 $query->execute();
@@ -277,10 +280,7 @@ switch($cmd){
 
 }
 
-} catch (PDOException $e) {
-	print "Erreur !: " . $e->getMessage() . "<br/>";
-	die();
-}
+
 ?>
 
 
