@@ -37,7 +37,7 @@ function select($table, $select, $where){
 function insert($table, $field, $values){
     global $BD_JDM;
 	$rqt="INSERT INTO ".$table." (".$field.") VALUES (".$values.");";
-	echo "</br>".$rqt."\n"."</br>";
+	echo "</br>".$rqt."</br>";
 	$result = $BD_JDM->query($rqt);
     return $result;
 }
@@ -142,7 +142,7 @@ function is_in_debug($pseudo){
 
 function getWordId($n){
     echo "debut getWordId\n";
-    $r_fw_id = select_one("node", "eid", "n='".$n."'");
+    $r_fw_id = select_one("node", "eid", "n=".$n);
     echo "après select one\n";
     if ($r_fw_id["eid"] == NULL){
         $r_min= select_one("node", "MIN(eid)", "");
@@ -263,7 +263,7 @@ switch($cmd){
 
         if (!is_relation_exist($n1,$n2,$t)){
             $attributs = "n1,n2,n1_s,n2_s,t,user_id";
-            echo "Avant getWordId\n";
+
             $n1_id = getWordId($n1);
 
             $n2_id = getWordId($n2);
