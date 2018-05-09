@@ -268,16 +268,17 @@ switch($cmd){
     case "insert_user":
         $pseudo = strval(urldecode($_GET["pseudo"]));
         $idBot = strval(urldecode($_GET["idBot"]));
+        $session = strval(urldecode($_GET["session"]));
 
         $table = "user";
-        $attributs = "pseudo,idBot";
-        $values = "'".$pseudo."'".",'".$idBot."'";
+        $attributs = "pseudo,idBot,session";
+        $values = "'".$pseudo."'".",'".$idBot."','".$session."'";
 
         if (!is_user_exist($pseudo)){
             insert($table, $attributs, $values);
         }
         else{
-            $set = "pseudo ='".$pseudo."',idBot ='".$idBot."'";
+            $set = "pseudo ='".$pseudo."',idBot ='".$idBot."','".$session."'";
             $idUser = getUserId($pseudo);
             $where = "id=".$idUser;
             update($table, $set, $where);
