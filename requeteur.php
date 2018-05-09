@@ -278,7 +278,7 @@ switch($cmd){
             insert($table, $attributs, $values);
         }
         else{
-            $set = "pseudo ='".$pseudo."',idBot ='".$idBot."','".$session."'";
+            $set = "pseudo ='".$pseudo."',idBot ='".$idBot."',session ='".$session."'";
             $idUser = getUserId($pseudo);
             $where = "id=".$idUser;
             update($table, $set, $where);
