@@ -266,9 +266,9 @@ switch($cmd){
         }
         break;
     case "insert_user":
-        $pseudo = strval(urldecode($_POST["pseudo"]));
-        $idBot = strval(urldecode($_POST["idBot"]));
-        $session = strval(urldecode($_POST["session"]));
+        $pseudo = strval($_POST["pseudo"]);
+        $idBot = strval($_POST["idBot"]);
+        $session = strval($_POST["session"]);
 
         $table = "user";
         $attributs = "pseudo,idBot,session";
