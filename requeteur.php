@@ -273,7 +273,7 @@ switch($cmd){
         $table = "user";
         $attributs = "pseudo,idBot,session";
         $values = "'".$pseudo."'".",'".$idBot."','".$session."'";
-
+        echo $values;
         if (!is_user_exist($pseudo)){
             insert($table, $attributs, $values);
         }
