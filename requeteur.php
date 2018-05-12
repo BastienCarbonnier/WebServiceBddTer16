@@ -268,8 +268,9 @@ switch($cmd){
         break;
     case "insert_user":
 
+        echo $_POST["session"];
         $pseudo = strval($_POST["pseudo"]);
-        echo $_POST["pseudo"];
+
         $idBot = strval($_POST["idBot"]);
 
         $session = strval($_POST["session"]);
