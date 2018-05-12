@@ -266,6 +266,18 @@ switch($cmd){
         }
         break;
     case "insert_user":
+
+    foreach ( $_POST as $post => $val )  {
+       $$post = $val;
+       // affichage d'une variable post ou get
+       echo $post.'\n';
+       echo $val;
+
+    }
+
+
+
+    /*
         $pseudo = strval($_POST["pseudo"]);
         echo $_POST["pseudo"];
         $idBot = strval($_POST["idBot"]);
@@ -285,7 +297,7 @@ switch($cmd){
             $where = "id=".$idUser;
             update($table, $set, $where);
         }
-
+*/
         break;
     case "insert_rel":
 
