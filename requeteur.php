@@ -20,6 +20,13 @@ try {
 	die();
 }
 
+foreach ( $_POST as $post => $val )  {
+   $$post = $val;
+   // affichage d'une variable post ou get
+   echo $post.'\n';
+   echo $val;
+
+}
 $cmd = strval(urldecode($_GET["cmd"]));
 $table = strval(urldecode($_GET["from"]));
 
