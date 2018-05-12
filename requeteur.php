@@ -22,7 +22,6 @@ try {
 
 
 $cmd = strval(urldecode($_GET["cmd"]));
-$table = strval(urldecode($_GET["from"]));
 
 
 $recup = false;
