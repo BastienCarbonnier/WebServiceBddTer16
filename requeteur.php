@@ -269,8 +269,6 @@ switch($cmd){
         }
         break;
     case "insert_user":
-
-        echo $_POST["session"];
         $pseudo = strval($_POST["pseudo"]);
 
         $idBot = strval($_POST["idBot"]);
@@ -280,7 +278,7 @@ switch($cmd){
         $table = "user";
         $attributs = "pseudo,idBot,session";
         $values = "'".$pseudo."'".",'".$idBot."','".$session."'";
-        echo $values;
+
         if (!is_user_exist($pseudo)){
             insert($table, $attributs, $values);
         }
