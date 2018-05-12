@@ -283,7 +283,7 @@ switch($cmd){
             insert($table, $attributs, $values);
         }
         else{
-            $set = "pseudo ='".$pseudo."',idBot ='".$idBot."',session ='".$BD_JDM->quote($session)."'";
+            $set = "pseudo ='".$pseudo."',idBot ='".$idBot."',session =".$BD_JDM->quote($session)."";
             $idUser = getUserId($pseudo);
             $where = "id=".$idUser;
             update($table, $set, $where);
