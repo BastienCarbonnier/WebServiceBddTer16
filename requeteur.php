@@ -273,17 +273,17 @@ switch($cmd){
 
         $idBot = strval($_POST["idBot"]);
 
-        $session = strval(urldecode($_POST["session"]));
+        $session = strval($_POST["session"]);
 
         $table = "user";
         $attributs = "pseudo,idBot,session";
-        $values = "'".$pseudo."'".",'".$idBot."','".$session."'";
+        $values = "'".$pseudo."'".",'".$idBot."','".$BD_JDM->quote($session)."'";
 
         if (!is_user_exist($pseudo)){
             insert($table, $attributs, $values);
         }
         else{
-            $set = "pseudo ='".$pseudo."',idBot ='".$idBot."',session ='".$session."'";
+            $set = "pseudo ='".$pseudo."',idBot ='".$idBot."',session ='".$BD_JDM->quote($session)."'";
             $idUser = getUserId($pseudo);
             $where = "id=".$idUser;
             update($table, $set, $where);
