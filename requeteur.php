@@ -20,9 +20,12 @@ try {
 	die();
 }
 
-
-$cmd = strval(urldecode($_GET["cmd"]));
-
+if (isset($_GET["cmd"])){
+    $cmd = $_GET["cmd"];
+}
+else if (isset($_POST["cmd"])){
+    $cmd = $_POST["cmd"];
+}
 
 $recup = false;
 function select($table, $select, $where){
