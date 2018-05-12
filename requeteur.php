@@ -273,7 +273,7 @@ switch($cmd){
 
         $idBot = strval($_POST["idBot"]);
 
-        $session = strval($_POST["session"]);
+        $session = strval(urldecode($_POST["session"]));
 
         $table = "user";
         $attributs = "pseudo,idBot,session";
