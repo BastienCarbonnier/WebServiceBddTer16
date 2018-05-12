@@ -27,6 +27,7 @@ foreach ( $_POST as $post => $val )  {
    echo $val;
 
 }
+
 $cmd = strval(urldecode($_GET["cmd"]));
 $table = strval(urldecode($_GET["from"]));
 
