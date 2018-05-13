@@ -166,9 +166,7 @@ function is_in_debug($pseudo){
 }
 
 function getWordId($n){
-    echo "debut getWordId\n";
     $r_fw_id = select_one("node", "eid", "n='".$n."'");
-    echo "après select one\n";
     if ($r_fw_id["eid"] == NULL){
         $r_min= select_one("node", "MIN(eid) min","");
         $min = intval($r_min["min"])-1;
@@ -181,6 +179,11 @@ function getWordId($n){
     else {
         return $r_fw_id["eid"];
     }
+}
+
+function getUserSession($pseudo){
+    $session = select_one("user", "session", "pseudo='".$pseudo."'");
+    return $session["session"];
 }
 /*
 
@@ -268,6 +271,12 @@ switch($cmd){
             echo "<result>false</result>";
         }
         break;
+    case "get_user_session":
+
+        $pseudo = strval(urldecode($_GET["pseudo"]));
+        echo "<result>".getUserSession($pseudo)."</result>";
+
+        break;
     case "insert_user":
         $pseudo = strval($_POST["pseudo"]);
 
@@ -277,7 +286,7 @@ switch($cmd){
 
         $table = "user";
         $attributs = "pseudo,idBot,session";
-        $values = "'".$pseudo."'".",'".$idBot."','".$BD_JDM->quote($session)."'";
+        $values = "'".$pseudo."'".",'".$idBot."',".$BD_JDM->quote($session)."";
 
         if (!is_user_exist($pseudo)){
             insert($table, $attributs, $values);
