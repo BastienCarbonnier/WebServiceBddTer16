@@ -181,9 +181,9 @@ function getWordId($n){
     }
 }
 
-function getUserSession($pseudo){
-    $session = select_one("user", "session", "pseudo='".$pseudo."'");
-    return $session["session"];
+function getUserAdresse($pseudo){
+    $adresse = select_one("user", "adresse", "pseudo='".$pseudo."'");
+    return $adresse["adresse"];
 }
 /*
 
@@ -271,28 +271,25 @@ switch($cmd){
             echo "<result>false</result>";
         }
         break;
-    case "get_user_session":
+    case "get_user_adresse":
 
         $pseudo = strval(urldecode($_GET["pseudo"]));
-        echo "<result>".getUserSession($pseudo)."</result>";
+        echo "<result>".getUserAdresse($pseudo)."</result>";
 
         break;
     case "insert_user":
         $pseudo = strval($_POST["pseudo"]);
-
-        $idBot = strval($_POST["idBot"]);
-
-        $session = strval($_POST["session"]);
+        $adresse = strval($_POST["adresse"]);
 
         $table = "user";
-        $attributs = "pseudo,idBot,session";
-        $values = "'".$pseudo."'".",'".$idBot."',".$BD_JDM->quote($session)."";
+        $attributs = "pseudo,adresse";
+        $values = "'".$pseudo."'".",".$BD_JDM->quote($adresse)."";
 
         if (!is_user_exist($pseudo)){
             insert($table, $attributs, $values);
         }
         else{
-            $set = "pseudo ='".$pseudo."',idBot ='".$idBot."',session =".$BD_JDM->quote($session)."";
+            $set = "pseudo ='".$pseudo."',idBot ='".$idBot."',adresse =".$BD_JDM->quote($adresse)."";
             $idUser = getUserId($pseudo);
             $where = "id=".$idUser;
             update($table, $set, $where);
