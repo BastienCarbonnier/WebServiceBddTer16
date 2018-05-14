@@ -26,7 +26,7 @@ if (isset($_GET["cmd"])){
 else if (isset($_POST["cmd"])){
     $cmd = $_POST["cmd"];
 }
-
+$result;
 $recup = false;
 function select($table, $select, $where){
 	global $BD_JDM;
