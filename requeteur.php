@@ -68,9 +68,9 @@ function select_one($table, $select, $where){
 }
 
 
-function increment_nbr_recept($rid, $nbr_recept){
+function increment_nbr_recept($rid, $nbr_recept,$w){
     global $BD_JDM;
-    $rqt="UPDATE relationuser SET nbr_recept=".($nbr_recept+1)." WHERE rid=".$rid.";";
+    $rqt="UPDATE relationuser SET nbr_recept=".($nbr_recept+1).",w=".($w*2)." WHERE rid=".$rid.";";
 
     $query = $BD_JDM->prepare($rqt);
     $query->execute();
@@ -315,11 +315,11 @@ switch($cmd){
             insert($table, $attributs, $values);
         }
         else {
-            $select = "rid,nbr_recept";
+            $select = "rid,nbr_recept,w";
             $where = "n1_s='".$n1."' AND n2_s='".$n2."' AND t=".$t;
 
             $result = select_one($table, $select, $where);
-            increment_nbr_recept($result["rid"],$result["nbr_recept"]);
+            increment_nbr_recept($result["rid"],$result["nbr_recept"],$result["w"]);
         }
 
         break;
