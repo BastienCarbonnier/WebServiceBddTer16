@@ -300,17 +300,18 @@ switch($cmd){
         $n1 = strval(urldecode($_GET["n1"]));
         $n2 = strval(urldecode($_GET["n2"]));
         $t = strval(urldecode($_GET["t"]));
+        $w = strval(urldecode($_GET["w"]));
         $pseudo = strval(urldecode($_GET["pseudo"]));
         $table = "relationuser";
 
         if (!is_relation_exist($n1,$n2,$t)){
-            $attributs = "n1,n2,n1_s,n2_s,t,user_id";
+            $attributs = "n1,n2,n1_s,n2_s,t,w,user_id";
 
             $n1_id = getWordId($n1);
 
             $n2_id = getWordId($n2);
 
-            $values = $n1_id.",".$n2_id.",'".$n1."','".$n2."',".$t.",(SELECT id FROM user WHERE pseudo='".$pseudo."')";
+            $values = $n1_id.",".$n2_id.",'".$n1."','".$n2."',".$t.",".$w.",(SELECT id FROM user WHERE pseudo='".$pseudo."')";
 
             insert($table, $attributs, $values);
         }
