@@ -26,7 +26,6 @@ if (isset($_GET["cmd"])){
 else if (isset($_POST["cmd"])){
     $cmd = $_POST["cmd"];
 }
-$result;
 $recup = false;
 function select($table, $select, $where){
 	global $BD_JDM;
@@ -316,6 +315,10 @@ switch($cmd){
             insert($table, $attributs, $values);
         }
         else {
+            $select = "rid,nbr_recept";
+            $where = "n1_s='".$n1."' AND n2_s='".$n2."' AND t=".$t;
+
+            $result = select_one($table, $select, $where);
             increment_nbr_recept($result["rid"],$result["nbr_recept"]);
         }
 
