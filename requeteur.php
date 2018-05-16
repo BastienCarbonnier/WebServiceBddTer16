@@ -146,7 +146,7 @@ function getUserId ($pseudo){
 
 function is_relation_exist ($n1,$n2,$t){
     $table = "relationuser";
-    $select = "rid,nbr_recept";
+    $select = "rid,nbr_recept_pos,nbr_recept_neg";
     $where = "n1_s='".$n1."' AND n2_s='".$n2."' AND t=".$t;
 
     $result = select_one($table, $select, $where);
@@ -315,7 +315,6 @@ switch($cmd){
         $table = "relationuser";
         $rel_neg = intval(urldecode($_GET["rel_neg"]));
 
-        echo "relation n'existe pas";
         if (!is_relation_exist($n1,$n2,$t)){
             $attributs = "n1,n2,n1_s,n2_s,t,w,user_id,nbr_recept";
             echo "relation n'existe pas";
