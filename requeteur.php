@@ -68,17 +68,17 @@ function select_one($table, $select, $where){
 }
 
 
-function increment_nbr_recept($rid, $nbr_recept,$w){
+function increment_nbr_recept($rid, $nbr_recept_pos,$nbr_recept_neg,$w){
     global $BD_JDM;
     $rel_neg = intval($_GET["rel_neg"]);
     $w_mod = 0;
     if ($rel_neg){
         $w_mod = $w-10;
-        $rqt="UPDATE relationuser SET nbr_recept_neg=".($nbr_recept+1).",w=".($w_mod)." WHERE rid=".$rid.";";
+        $rqt="UPDATE relationuser SET nbr_recept_neg=".($nbr_recept_neg+1).",w=".($w_mod)." WHERE rid=".$rid.";";
     }
     else{
         $w_mod = $w+10;
-        $rqt="UPDATE relationuser SET nbr_recept_pos=".($nbr_recept+1).",w=".($w_mod)." WHERE rid=".$rid.";";
+        $rqt="UPDATE relationuser SET nbr_recept_pos=".($nbr_recept_pos+1).",w=".($w_mod)." WHERE rid=".$rid.";";
     }
 
 
@@ -319,7 +319,6 @@ switch($cmd){
             $attributs = "n1,n2,n1_s,n2_s,t,w,user_id,nbr_recept";
 
             $n1_id = getWordId($n1);
-            echo $n1_id;
             $n2_id = getWordId($n2);
 
             $values = $n1_id.",".$n2_id.",'".$n1."','".$n2."',".$t.",".$w.",(SELECT id FROM user WHERE pseudo='".$pseudo."')";
@@ -341,11 +340,11 @@ switch($cmd){
             insert($table, $attributs, $values);
         }
         else {
-            $select = "rid,nbr_recept,w";
+            $select = "rid,nbr_recept_neg,nbr_recept_pos,w";
             $where = "n1_s='".$n1."' AND n2_s='".$n2."' AND t=".$t;
 
             $result = select_one($table, $select, $where);
-            increment_nbr_recept($result["rid"],$result["nbr_recept"],$result["w"]);
+            increment_nbr_recept($result["rid"],$result["nbr_recept_pos"],$result["nbr_recept_neg"],$result["w"]);
         }
 
         break;
