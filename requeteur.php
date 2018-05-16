@@ -314,10 +314,9 @@ switch($cmd){
         $pseudo = strval(urldecode($_GET["pseudo"]));
         $table = "relationuser";
         $rel_neg = intval(urldecode($_GET["rel_neg"]));
-        echo $rel_neg;
         if (!is_relation_exist($n1,$n2,$t)){
             $attributs = "n1,n2,n1_s,n2_s,t,w,user_id,nbr_recept";
-
+            echo "relation n'existe pas";
             $n1_id = getWordId($n1);
             $n2_id = getWordId($n2);
 
@@ -340,6 +339,7 @@ switch($cmd){
             insert($table, $attributs, $values);
         }
         else {
+            echo "relation existe ";
             $select = "rid,nbr_recept_neg,nbr_recept_pos,w";
             $where = "n1_s='".$n1."' AND n2_s='".$n2."' AND t=".$t;
 
