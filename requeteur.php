@@ -194,6 +194,19 @@ function getUserAdresse($pseudo){
     $adresse = select_one("user", "adresse", "pseudo='".$pseudo."'");
     return $adresse["adresse"];
 }
+function getUserLastFw($pseudo){
+    $adresse = select_one("user", "last_fw", "pseudo='".$pseudo."'");
+    return $adresse["last_fw"];
+}
+
+function updateLastFw($fw,$pseudo){
+    $table = "user";
+    $set = "last_fw ='".$fw."'";
+    $idUser = getUserId($pseudo);
+    $where = "id=".$idUser;
+
+    update($table, $set, $where);
+}
 /*
 
 Activer mode debug
@@ -297,6 +310,12 @@ switch($cmd){
         echo "<result>".getUserAdresse($pseudo)."</result>";
 
         break;
+    case "get_user_last_fw":
+
+        $pseudo = strval(urldecode($_GET["pseudo"]));
+        echo "<result>".getUserLastFw($pseudo)."</result>";
+
+        break;
     case "insert_user":
         $pseudo = strval($_POST["pseudo"]);
         $adresse = strval($_POST["adresse"]);
@@ -325,7 +344,7 @@ switch($cmd){
         $pseudo = strval(urldecode($_GET["pseudo"]));
         $table = "relationuser";
         $rel_neg = intval(urldecode($_GET["rel_neg"]));
-
+        updateLastFw($n1,$pseudo);
         if (!is_relation_exist($n1,$n2,$t)){
             $attributs = "n1,n2,n1_s,n2_s,t,w,user_id,nbr_recept";
             $n1_id = getWordId($n1);
