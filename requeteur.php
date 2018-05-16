@@ -319,7 +319,7 @@ switch($cmd){
             $attributs = "n1,n2,n1_s,n2_s,t,w,user_id,nbr_recept";
 
             $n1_id = getWordId($n1);
-
+            echo $n1_id;
             $n2_id = getWordId($n2);
 
             $values = $n1_id.",".$n2_id.",'".$n1."','".$n2."',".$t.",".$w.",(SELECT id FROM user WHERE pseudo='".$pseudo."')";
@@ -329,7 +329,6 @@ switch($cmd){
             if ($rel_neg == "1"){
                 $w_mod = -10;
                 $attributs .="_neg";
-                $rqt="UPDATE relationuser SET nbr_recept_neg=".($nbr_recept+1).",w=".($w_mod)." WHERE rid=".$rid.";";
 
                 $values = $n1_id.",".$n2_id.",'".$n1."','".$n2."',".$t.",".$w_mod.",(SELECT id FROM user WHERE pseudo='".$pseudo."'),"."1";
             }
