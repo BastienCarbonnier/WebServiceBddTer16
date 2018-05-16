@@ -70,7 +70,17 @@ function select_one($table, $select, $where){
 
 function increment_nbr_recept($rid, $nbr_recept,$w){
     global $BD_JDM;
-    $rqt="UPDATE relationuser SET nbr_recept=".($nbr_recept+1).",w=".($w*2)." WHERE rid=".$rid.";";
+    $rel_neg = intval($_GET["rel_neg"]);
+    $w_mod = 0;
+    if ($rel_neg){
+        $w_mod = $w-10;
+        $rqt="UPDATE relationuser SET nbr_recept_neg=".($nbr_recept+1).",w=".($w_mod)." WHERE rid=".$rid.";";
+    }
+    else{
+        $w_mod = $w+10;
+        $rqt="UPDATE relationuser SET nbr_recept_pos=".($nbr_recept+1).",w=".($w_mod)." WHERE rid=".$rid.";";
+    }
+
 
     $query = $BD_JDM->prepare($rqt);
     $query->execute();
@@ -305,13 +315,28 @@ switch($cmd){
         $table = "relationuser";
 
         if (!is_relation_exist($n1,$n2,$t)){
-            $attributs = "n1,n2,n1_s,n2_s,t,w,user_id";
+            $attributs = "n1,n2,n1_s,n2_s,t,w,user_id,nbr_recept";
 
             $n1_id = getWordId($n1);
 
             $n2_id = getWordId($n2);
 
             $values = $n1_id.",".$n2_id.",'".$n1."','".$n2."',".$t.",".$w.",(SELECT id FROM user WHERE pseudo='".$pseudo."')";
+
+            $rel_neg = intval($_GET["rel_neg"]);
+            $w_mod = 0;
+            if ($rel_neg){
+                $w_mod = -10;
+                $attributs .="_neg";
+                $rqt="UPDATE relationuser SET nbr_recept_neg=".($nbr_recept+1).",w=".($w_mod)." WHERE rid=".$rid.";";
+
+                $values = $n1_id.",".$n2_id.",'".$n1."','".$n2."',".$t.",".$w_mod.",(SELECT id FROM user WHERE pseudo='".$pseudo."'),"."1";
+            }
+            else{
+                $w_mod = 10;
+                $attributs .="_pos";
+                $values = $n1_id.",".$n2_id.",'".$n1."','".$n2."',".$t.",".$w_mod.",(SELECT id FROM user WHERE pseudo='".$pseudo."'),"."1";
+            }
 
             insert($table, $attributs, $values);
         }
