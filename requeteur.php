@@ -276,11 +276,11 @@ switch($cmd){
         if (is_relation_exist($n1,$n2,$t)){
             echo "<result>true</result>";
             $table = "relationuser";
-            $select = "nbr_recept_neg,nbr_recept_pos";
+            $select = "nbr_recept_neg,nbr_recept_pos,w";
             $where = "n1_s='".$n1."' AND n2_s='".$n2."' AND t=".$t;
 
             $result = select_one($table, $select, $where);
-            if ($result["nbr_recept_neg"]<$result["nbr_recept_pos"]){
+            if ($result["w"]>0){
                 echo "<rel_neg>false</rel_neg>";
             }
             else{
