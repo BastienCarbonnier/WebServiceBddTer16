@@ -313,7 +313,7 @@ switch($cmd){
         $w = strval(urldecode($_GET["w"]));
         $pseudo = strval(urldecode($_GET["pseudo"]));
         $table = "relationuser";
-        $rel_neg = intval(urldecode($_GET["rel_neg"]));
+        $rel_neg = strval(urldecode($_GET["rel_neg"]));
 
         if (!is_relation_exist($n1,$n2,$t)){
             $attributs = "n1,n2,n1_s,n2_s,t,w,user_id,nbr_recept";
@@ -326,7 +326,7 @@ switch($cmd){
 
 
             $w_mod = 0;
-            if ($rel_neg){
+            if ($rel_neg == "1"){
                 $w_mod = -10;
                 $attributs .="_neg";
                 $rqt="UPDATE relationuser SET nbr_recept_neg=".($nbr_recept+1).",w=".($w_mod)." WHERE rid=".$rid.";";
