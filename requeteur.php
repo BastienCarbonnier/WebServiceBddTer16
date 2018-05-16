@@ -275,6 +275,17 @@ switch($cmd){
 
         if (is_relation_exist($n1,$n2,$t)){
             echo "<result>true</result>";
+            $table = "relationuser";
+            $select = "nbr_recept_neg,nbr_recept_pos";
+            $where = "n1_s='".$n1."' AND n2_s='".$n2."' AND t=".$t;
+
+            $result = select_one($table, $select, $where);
+            if ($result["nbr_recept_neg"]<$result["nbr_recept_pos"]){
+                echo "<rel_neg>false</rel_neg>";
+            }
+            else{
+                echo "<rel_neg>true</rel_neg>";
+            }
         }
         else {
             echo "<result>false</result>";
@@ -317,7 +328,6 @@ switch($cmd){
 
         if (!is_relation_exist($n1,$n2,$t)){
             $attributs = "n1,n2,n1_s,n2_s,t,w,user_id,nbr_recept";
-            echo "relation n'existe pas";
             $n1_id = getWordId($n1);
             $n2_id = getWordId($n2);
 
@@ -340,7 +350,6 @@ switch($cmd){
             insert($table, $attributs, $values);
         }
         else {
-            echo "relation existe ";
             $select = "rid,nbr_recept_neg,nbr_recept_pos,w";
             $where = "n1_s='".$n1."' AND n2_s='".$n2."' AND t=".$t;
 
