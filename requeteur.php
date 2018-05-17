@@ -194,14 +194,33 @@ function getUserAdresse($pseudo){
     $adresse = select_one("user", "adresse", "pseudo='".$pseudo."'");
     return $adresse["adresse"];
 }
-function getUserLastFaFw($pseudo){
-    $adresse = select_one("user", "last_fa,last_fw", "pseudo='".$pseudo."'");
-    return "<fa>".$adresse["last_fa"]."</fa><fw>".$adresse["last_fw"]."</fa>";
+function getUserLastFaFw($pseudo,$question){
+    if ($question){
+        $champ = "last_fa_ques,last_fw_ques";
+    }
+    else{
+        $champ = "last_fa_aff,last_fw_aff";
+    }
+    $adresse = select_one("user", $champ, "pseudo='".$pseudo."'");
+
+    if ($question){
+        return "<fa>".$adresse["last_fa_ques"]."</fa><fw>".$adresse["last_fw_ques"]."</fw>";
+    }
+    else{
+        return "<fa>".$adresse["last_fa_aff"]."</fa><fw>".$adresse["last_fw_aff"]."</fw>";
+    }
+
 }
 
-function updateLastFaFw($fa,$fw,$pseudo){
-    $table = "user";
-    $set = "last_fw ='".$fw."',last_fa ='".$fa."'";
+function updateLastFaFw($fa,$fw,$pseudo,$question){
+    $table = "itemuser";
+    if ($question){
+        $set = "last_fw_ques ='".$fw."',last_fa_ques ='".$fa."'";
+    }
+    else{
+        $set = "last_fw_aff ='".$fw."',last_fa_aff ='".$fa."'";
+    }
+
     $idUser = getUserId($pseudo);
     $where = "id=".$idUser;
 
@@ -284,9 +303,11 @@ switch($cmd){
         $n1 = strval(urldecode($_GET["n1"]));
         $n2 = strval(urldecode($_GET["n2"]));
         $t = strval(urldecode($_GET["t"]));
-        //$pseudo = strval(urldecode($_GET["pseudo"]));
+        $pseudo = strval(urldecode($_GET["pseudo"]));
         $fa = strval(urldecode($_GET["fa"]));
-        //updateLastFaFw($fa,$n1,$pseudo);
+        $question = true;
+
+        updateLastFaFw($fa,$n1,$pseudo,$question);
 
         if (is_relation_exist($n1,$n2,$t)){
             echo "<result>true</result>";
@@ -314,8 +335,9 @@ switch($cmd){
         break;
     case "get_user_last_fa_fw":
 
+        $question = intval(urldecode($_GET["question"]));
         $pseudo = strval(urldecode($_GET["pseudo"]));
-        echo "<result>".getUserLastFaFw($pseudo)."</result>";
+        echo "<result>".getUserLastFaFw($pseudo,$question)."</result>";
 
         break;
     case "insert_user":
@@ -338,6 +360,8 @@ switch($cmd){
 
         break;
     case "insert_rel":
+
+        $question = false;
         $fa = strval(urldecode($_GET["fa"]));
         $n1 = strval(urldecode($_GET["n1"]));
         $n2 = strval(urldecode($_GET["n2"]));
@@ -346,7 +370,7 @@ switch($cmd){
         $pseudo = strval(urldecode($_GET["pseudo"]));
         $table = "relationuser";
         $rel_neg = intval(urldecode($_GET["rel_neg"]));
-        updateLastFaFw($fa,$n1,$pseudo);
+        updateLastFaFw($fa,$n1,$pseudo,$question);
         if (!is_relation_exist($n1,$n2,$t)){
             $attributs = "n1,n2,n1_s,n2_s,t,w,user_id,nbr_recept";
             $n1_id = getWordId($n1);
