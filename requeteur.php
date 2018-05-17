@@ -260,7 +260,7 @@ function updateLastFaFw($fa,$fw,$pseudo,$question){
 
 
         $values = $idUser.",".$BD_JDM->quote($fa).",".$BD_JDM->quote($fw);
-
+        echo $values;
         insert($table, $attributs, $values);
 
     }
