@@ -237,7 +237,6 @@ function updateLastFaFw($fa,$fw,$pseudo,$question){
     $table = "itemuser";
     $idUser = getUserId($pseudo);
 
-    echo "update Last fa fw";
     if (is_fa_fw_exist ($pseudo)){
         if ($question){
             $set = "last_fw_ques ='".$fw."',last_fa_ques ='".$fa."'";
@@ -259,7 +258,6 @@ function updateLastFaFw($fa,$fw,$pseudo,$question){
             $attributs = "user_id,last_fa_aff,last_fw_aff";
         }
 
-        echo "estce que sa marche</br>";
         $values = $idUser.",'".$fa."','".$fw."'";
 
         insert($table, $attributs, $values);
