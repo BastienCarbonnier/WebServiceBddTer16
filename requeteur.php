@@ -137,7 +137,7 @@ function is_fa_fw_exist ($pseudo){
     $table = "itemuser";
     $select = "id";
     $idUser = getUserId($pseudo);
-    $where = "user_id='".$idUser."'";
+    $where = "user_id=".$idUser;
 
     $result = select_one($table, $select, $where);
 
@@ -236,6 +236,7 @@ function updateLastFaFw($fa,$fw,$pseudo,$question){
 
     $table = "itemuser";
     $idUser = getUserId($pseudo);
+
     if (is_fa_fw_exist ($pseudo)){
         if ($question){
             $set = "last_fw_ques ='".$fw."',last_fa_ques ='".$fa."'";
@@ -297,21 +298,6 @@ https://2018hlin601ter16.proj.info-ufr.univ-montp2.fr/WebServiceBddTer16/requete
  */
 
 switch($cmd){
-    /*
-	case "select":
-		$select = strval(urldecode($_GET["select"]));
-		$where = strval(urldecode($_GET["where"]));
-		$recup = select($table, $select, $where);
-
-		afficheResultat($recup);
-		break;
-
-	case "insert":
-		$values = strval(urldecode($_GET["values"]));
-		$field = strval(urldecode($_GET["field"]));
-		insert($table, $field, $values);
-		break;
-    */
     case "active_debug":
         $user_pseudo = strval(urldecode($_GET["pseudo"]));
         active_debug($user_pseudo);
