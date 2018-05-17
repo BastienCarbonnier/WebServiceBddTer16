@@ -284,8 +284,8 @@ switch($cmd){
         $n1 = strval(urldecode($_GET["n1"]));
         $n2 = strval(urldecode($_GET["n2"]));
         $t = strval(urldecode($_GET["t"]));
-
-            $fa = strval(urldecode($_GET["fa"]));
+        $pseudo = strval(urldecode($_GET["pseudo"]));
+        $fa = strval(urldecode($_GET["fa"]));
         updateLastFaFw($fa,$n1,$pseudo);
 
         if (is_relation_exist($n1,$n2,$t)){
