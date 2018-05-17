@@ -133,6 +133,22 @@ function is_user_exist ($pseudo){
     }
 }
 
+function is_fa_fw_exist ($pseudo){
+    $table = "itemuser";
+    $select = "id";
+    $idUser = getUserId($pseudo);
+    $where = "user_id='".$idUser."'";
+
+    $result = select_one($table, $select, $where);
+
+    if ($result["id"] == NULL){
+        return false;
+    }
+    else {
+        return true;
+    }
+}
+
 function getUserId ($pseudo){
     $table = "user";
     $select = "id";
@@ -201,30 +217,55 @@ function getUserLastFaFw($pseudo,$question){
     else{
         $champ = "last_fa_aff,last_fw_aff";
     }
-    $adresse = select_one("user", $champ, "pseudo='".$pseudo."'");
+
+    $idUser = getUserId($pseudo);
+    $where = "user_id=".$idUser;
+
+    $last = select_one("itemuser", $champ,$where);
 
     if ($question){
-        return "<fa>".$adresse["last_fa_ques"]."</fa><fw>".$adresse["last_fw_ques"]."</fw>";
+        return "<fa>".$last["last_fa_ques"]."</fa><fw>".$last["last_fw_ques"]."</fw>";
     }
     else{
-        return "<fa>".$adresse["last_fa_aff"]."</fa><fw>".$adresse["last_fw_aff"]."</fw>";
+        return "<fa>".$last["last_fa_aff"]."</fa><fw>".$last["last_fw_aff"]."</fw>";
     }
 
 }
 
 function updateLastFaFw($fa,$fw,$pseudo,$question){
+
     $table = "itemuser";
-    if ($question){
-        $set = "last_fw_ques ='".$fw."',last_fa_ques ='".$fa."'";
+
+    if (is_fa_fw_exist ($pseudo)){
+        if ($question){
+            $set = "last_fw_ques ='".$fw."',last_fa_ques ='".$fa."'";
+        }
+        else{
+            $set = "last_fw_aff ='".$fw."',last_fa_aff ='".$fa."'";
+        }
+
+        $idUser = getUserId($pseudo);
+        $where = "user_id=".$idUser;
+
+        update($table, $set, $where);
     }
     else{
-        $set = "last_fw_aff ='".$fw."',last_fa_aff ='".$fa."'";
+        if ($question){
+            $attributs = "user_id,last_fa_ques,last_fw_ques";
+        }
+        else{
+            $attributs = "user_id,last_fa_aff,last_fw_aff";
+        }
+
+        $idUser = getUserId($pseudo);
+
+
+        $values = $idUser.",".$BD_JDM->quote($fa).",".$BD_JDM->quote($fw);
+
+        insert($table, $attributs, $values);
+
     }
 
-    $idUser = getUserId($pseudo);
-    $where = "id=".$idUser;
-
-    update($table, $set, $where);
 }
 /*
 
