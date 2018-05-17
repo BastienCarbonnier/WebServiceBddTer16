@@ -140,7 +140,7 @@ function is_fa_fw_exist ($pseudo){
     $where = "user_id=".$idUser;
 
     $result = select_one($table, $select, $where);
-    echo "estce que sa marche</br>";
+
     if ($result["id"] == NULL){
         return false;
     }
@@ -245,7 +245,7 @@ function updateLastFaFw($fa,$fw,$pseudo,$question){
         else{
             $set = "last_fw_aff ='".$fw."',last_fa_aff ='".$fa."'";
         }
-
+        echo "estce que sa marche</br>";
 
         $where = "user_id=".$idUser;
 
