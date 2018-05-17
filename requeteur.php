@@ -245,7 +245,7 @@ function updateLastFaFw($fa,$fw,$pseudo,$question){
         else{
             $set = "last_fw_aff ='".$fw."',last_fa_aff ='".$fa."'";
         }
-        echo "estce que sa marche</br>";
+
 
         $where = "user_id=".$idUser;
 
@@ -259,7 +259,7 @@ function updateLastFaFw($fa,$fw,$pseudo,$question){
             $attributs = "user_id,last_fa_aff,last_fw_aff";
         }
 
-
+        echo "estce que sa marche</br>";
         $values = $idUser.",".$BD_JDM->quote($fa).",".$BD_JDM->quote($fw);
 
         insert($table, $attributs, $values);
