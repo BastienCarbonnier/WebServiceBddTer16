@@ -235,7 +235,7 @@ function getUserLastFaFw($pseudo,$question){
 function updateLastFaFw($fa,$fw,$pseudo,$question){
 
     $table = "itemuser";
-
+    $idUser = getUserId($pseudo);
     if (is_fa_fw_exist ($pseudo)){
         if ($question){
             $set = "last_fw_ques ='".$fw."',last_fa_ques ='".$fa."'";
@@ -244,7 +244,7 @@ function updateLastFaFw($fa,$fw,$pseudo,$question){
             $set = "last_fw_aff ='".$fw."',last_fa_aff ='".$fa."'";
         }
 
-        $idUser = getUserId($pseudo);
+
         $where = "user_id=".$idUser;
 
         update($table, $set, $where);
@@ -256,8 +256,6 @@ function updateLastFaFw($fa,$fw,$pseudo,$question){
         else{
             $attributs = "user_id,last_fa_aff,last_fw_aff";
         }
-
-        $idUser = getUserId($pseudo);
 
 
         $values = $idUser.",".$BD_JDM->quote($fa).",".$BD_JDM->quote($fw);
