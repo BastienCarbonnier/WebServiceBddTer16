@@ -205,7 +205,7 @@ switch($cmd){
 
 function select($table, $select, $where){
 	global $BD_JDM;
-	
+
 	$rqt="SELECT ".$select." FROM ".$table." WHERE ".$where;
 	$query = $BD_JDM->prepare($rqt);
 	$query->execute();
@@ -230,7 +230,7 @@ function update($table, $set, $where){
 
 function select_one($table, $select, $where){
 	global $BD_JDM;
-	
+
 	if ($where != ""){
 		$where = " WHERE ".$where;
 	}
@@ -238,7 +238,7 @@ function select_one($table, $select, $where){
 	echo $rqt;
 	$query = $BD_JDM->prepare($rqt);
 	$query->execute();
-	
+
 	$result = $query->fetch();
 	return $result;
 }
@@ -256,8 +256,8 @@ function increment_nbr_recept($rid, $nbr_recept_pos,$nbr_recept_neg,$w){
 		$w_mod = $w+10;
 		$rqt="UPDATE relationuser SET nbr_recept_pos=".($nbr_recept_pos+1).",w=".($w_mod)." WHERE rid=".$rid.";";
 	}
-	
-	
+
+
 	$query = $BD_JDM->prepare($rqt);
 	$query->execute();
 	return $result;
@@ -267,11 +267,11 @@ function increment_nbr_recept($rid, $nbr_recept_pos,$nbr_recept_neg,$w){
 function afficheResultat($tab){
 	echo "nbr_resultat = ".sizeof($tab);
 	$strucAffich = "<resultat>";
-	
+
 	for($i = 0; $i < sizeof($tab); $i++){
 		$strucAffich .= "<id =".$i.">";
 		for($j = 0; $j < sizeof($tab[$i])/2; $j++){
-			
+
 			$strucAffich .="<res>".$tab[$i][$j]."</res>";
 		}
 		$strucAffich .="</id>";
@@ -283,14 +283,14 @@ function afficheResultat($tab){
 function active_debug($user_pseudo){
 	global $BD_JDM;
 	$rqt="UPDATE user SET debug=1 WHERE pseudo='".$user_pseudo."';";
-	
+
 	$query = $BD_JDM->prepare($rqt);
 	$query->execute();
 }
 function desactive_debug($user_pseudo){
 	global $BD_JDM;
 	$rqt="UPDATE user SET debug=0 WHERE pseudo='".$user_pseudo."';";
-	
+
 	$query = $BD_JDM->prepare($rqt);
 	$query->execute();
 }
@@ -298,9 +298,9 @@ function is_user_exist ($pseudo){
 	$table = "user";
 	$select = "id";
 	$where = "pseudo='".$pseudo."'";
-	
+
 	$result = select_one($table, $select, $where);
-	
+
 	if ($result["id"] == NULL){
 		return false;
 	}
@@ -314,9 +314,9 @@ function is_fa_fw_exist ($pseudo){
 	$select = "id";
 	$idUser = getUserId($pseudo);
 	$where = "user_id=".$idUser;
-	
+
 	$result = select_one($table, $select, $where);
-	
+
 	if ($result["id"] == NULL){
 		return false;
 	}
@@ -329,9 +329,9 @@ function getUserId ($pseudo){
 	$table = "user";
 	$select = "id";
 	$where = "pseudo='".$pseudo."'";
-	
+
 	$result = select_one($table, $select, $where);
-	
+
 	return $result["id"];
 }
 
@@ -340,9 +340,9 @@ function is_relation_exist ($n1,$n2,$t){
 	$table = "relationuser";
 	$select = "rid,nbr_recept_pos,nbr_recept_neg";
 	$where = "n1_s='".$n1."' AND n2_s='".$n2."' AND t=".$t;
-	
+
 	$result = select_one($table, $select, $where);
-	
+
 	if ($result["rid"] == NULL){
 		return false;
 	}
@@ -355,9 +355,9 @@ function is_in_debug($pseudo){
 	$table = "user";
 	$select = "debug";
 	$where = "pseudo='".$pseudo."'";
-	
+
 	$result = select_one($table, $select, $where);
-	
+
 	if ($result["debug"] == 0){
 		return false;
 	}
@@ -393,26 +393,26 @@ function getUserLastFaFw($pseudo,$question){
 	else{
 		$champ = "last_fa_aff,last_fw_aff";
 	}
-	
+
 	$idUser = getUserId($pseudo);
 	$where = "user_id=".$idUser;
-	
+
 	$last = select_one("itemuser", $champ,$where);
-	
+
 	if ($question){
 		return "<fa>".$last["last_fa_ques"]."</fa><fw>".$last["last_fw_ques"]."</fw>";
 	}
 	else{
 		return "<fa>".$last["last_fa_aff"]."</fa><fw>".$last["last_fw_aff"]."</fw>";
 	}
-	
+
 }
 
 function updateLastFaFw($fa,$fw,$pseudo,$question){
-	
+
 	$table = "itemuser";
 	$idUser = getUserId($pseudo);
-	
+
 	if (is_fa_fw_exist ($pseudo)){
 		if ($question){
 			$set = "last_fw_ques ='".$fw."',last_fa_ques ='".$fa."'";
@@ -420,10 +420,10 @@ function updateLastFaFw($fa,$fw,$pseudo,$question){
 		else{
 			$set = "last_fw_aff ='".$fw."',last_fa_aff ='".$fa."'";
 		}
-		
-		
+
+
 		$where = "user_id=".$idUser;
-		
+
 		update($table, $set, $where);
 	}
 	else{
@@ -433,11 +433,11 @@ function updateLastFaFw($fa,$fw,$pseudo,$question){
 		else{
 			$attributs = "user_id,last_fa_aff,last_fw_aff";
 		}
-		
+
 		$values = $idUser.",'".$fa."','".$fw."'";
-		
+
 		insert($table, $attributs, $values);
-		
+
 	}
 }
 
@@ -445,20 +445,26 @@ function afficheInf($n1, $n2, $t){
 	global $BD_JDM;
 	$query = "SELECT t1.n2, t1.w as w1, t2.w as w2 FROM relation as t1 JOIN relation as t2 ON t1.n2 = t2.n1 WHERE t1.t = 6 AND t2.t = :t AND t1.n1 = :n1 AND t2.n2 = :n2";
 	$rqt = $BD_JDM->prepare($query);
-	
+
 	$rqt->bindParam(":t",$t);
 	$rqt->bindParam(":n1",$n1);
 	$rqt->bindParam(":n2",$n2);
-	
+
 	$rqt->execute();
 	$result = $rqt->fetch();
-	// $result : tableau contenant : $result["n2"], $result["w1"], $result["w2"] 
+	// $result : tableau contenant : $result["n2"], $result["w1"], $result["w2"]
 	// respectivement le mot intermédiaire, la poid de la premier relation et le poid de la seconde
-	
+
 	// Actuellment affiche un truc du style : 3171 6 104993 0 2503675
 	// pour la recherche de l'inférence n1 t1 n2
 	// On a n1 t2 n3 t1 n2
-	echo $n1 . " 6 " . $result["n2"] . " " . $t . " " . $n2;
+	//echo $n1 . " 6 " . $result["n2"] . " " . $t . " " . $n2;
+    if ($result["n2"]!= NULL){
+        echo "<w1>".$result["w1"]."</w1><n2>".$result["n2"]."</n2><w2>".$result["w2"]."</w2>";
+    }
+    else{
+        echo "<error>true</error>";
+    }
 }
 ?>
 
