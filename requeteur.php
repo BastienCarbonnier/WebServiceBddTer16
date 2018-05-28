@@ -141,16 +141,62 @@ switch($cmd){
 
         if (!is_user_exist($pseudo)){
             insert($table, $attributs, $values);
+            echo "<result>true</result>";
         }
         else{
             $set = "pseudo ='".$pseudo."',adresse =".$BD_JDM->quote($adresse)."";
             $idUser = getUserId($pseudo);
             $where = "id=".$idUser;
             update($table, $set, $where);
+            echo "<result>false</result>";
         }
 
         break;
-    case "insert_rel":
+    case "insert_rel_rezo":
+
+        $question = false;
+        $fa = strval(urldecode($_GET["fa"]));
+        $n1 = strval(urldecode($_GET["n1"]));
+        $n2 = strval(urldecode($_GET["n2"]));
+        $t = strval(urldecode($_GET["t"]));
+        $w = strval(urldecode($_GET["w"]));
+        $pseudo = strval(urldecode($_GET["pseudo"]));
+        $table = "relationuser";
+        $rel_neg = intval(urldecode($_GET["rel_neg"]));
+        updateLastFaFw($fa,$n1,$pseudo,$question);
+        if (!is_relation_exist($n1,$n2,$t)){
+            $attributs = "n1,n2,n1_s,n2_s,t,w,user_id,nbr_recept";
+            $n1_id = getWordId($n1);
+            $n2_id = getWordId($n2);
+
+            $values = $n1_id.",".$n2_id.",'".$n1."','".$n2."',".$t.",".$w.",(SELECT id FROM user WHERE pseudo='".$pseudo."')";
+
+
+            $w_mod = 0;
+            if ($rel_neg){
+                $w_mod = -10;
+                $attributs .="_neg";
+
+                $values = $n1_id.",".$n2_id.",'".$n1."','".$n2."',".$t.",".$w_mod.",(SELECT id FROM user WHERE pseudo='".$pseudo."'),1";
+            }
+            else{
+                $w_mod = 10;
+                $attributs .="_pos";
+                $values = $n1_id.",".$n2_id.",'".$n1."','".$n2."',".$t.",".$w_mod.",(SELECT id FROM user WHERE pseudo='".$pseudo."'),1";
+            }
+
+            insert($table, $attributs, $values);
+        }
+        else {
+            $select = "rid,nbr_recept_neg,nbr_recept_pos,w";
+            $where = "n1_s='".$n1."' AND n2_s='".$n2."' AND t=".$t;
+
+            $result = select_one($table, $select, $where);
+            increment_nbr_recept($result["rid"],$result["nbr_recept_pos"],$result["nbr_recept_neg"],$result["w"]);
+        }
+
+        break;
+        case "insert_rel":
 
         $question = false;
         $fa = strval(urldecode($_GET["fa"]));
